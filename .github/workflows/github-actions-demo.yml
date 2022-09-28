@@ -1,15 +1,27 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Unit Tests
+run-name: Running unit test cases
+on:
+  pull_request: {}
+  push:
+    branches: ["master"]
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  test-build-setup:
+    name: "Test PR"
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+        php-versions: [ '7.1','7.2','7.3','7.4', '8.0', '8.1' ]
+        phpunit-versions: [ 'latest' ]
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v3
+      - name: Cancel Previous Runs
+        uses: "styfle/cancel-workflow-action@0.5.0"
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
