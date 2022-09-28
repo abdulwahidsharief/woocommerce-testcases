@@ -1,6 +1,6 @@
 branches:
   only:
-    - main
+    - master
 
 language: php
 
