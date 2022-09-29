@@ -24,5 +24,3 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-      - name: Set up MySQL
-      - uses: mirromutth/mysql-action@v1.1
