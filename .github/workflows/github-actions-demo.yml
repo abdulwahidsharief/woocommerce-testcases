@@ -25,4 +25,4 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
       - name: Set up MySQL
-          uses: mirromutth/mysql-action@v1.1
+      - uses: mirromutth/mysql-action@v1.1
