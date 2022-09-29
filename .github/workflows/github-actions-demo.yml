@@ -25,4 +25,4 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
       - name: install wordpress
-        run: wp plugin install user-switching --activate
+      - run: wp plugin install user-switching --activate
