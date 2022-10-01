@@ -20,23 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EnvGreeter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Greeter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/EnvGreeterTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/GreeterTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/github-actions-demo.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-plugin.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Plugin.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/bootstrap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test-example.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/wp-config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -25,7 +25,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
       - name: PHPUnit Tests
-        uses: php-actions/phpunit
+        uses: php-actions/phpunit@v3
         env:
           TEST_NAME: UnitTests
         with:
