@@ -24,3 +24,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit
+        env:
+          TEST_NAME: UnitTests
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: test/phpunit.xml
+          args: --coverage-text
