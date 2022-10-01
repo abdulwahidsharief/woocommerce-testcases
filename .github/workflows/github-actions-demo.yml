@@ -5,8 +5,14 @@ on:
   push:
     branches: ["master"]
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  test-build-setup:
+    name: "Test PR"
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+        php-versions: [ '7.1','7.2','7.3','7.4', '8.0', '8.1' ]
+        phpunit-versions: [ 'latest' ]
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
