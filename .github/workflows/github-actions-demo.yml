@@ -15,10 +15,10 @@ jobs:
         phpunit-versions: [ 'latest' ]
     steps:
       - name: Cancel Previous Runs
-      - uses: styfle/cancel-workflow-action@0.5.0
+        uses: "styfle/cancel-workflow-action@0.5.0"
         with:
           access_token: ${{ github.token }}
-      - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
+          - uses: actions/checkout@v2
+          - uses: shivammathur/setup-php@v2
+            with:
+              php-version: ${{ matrix.php-versions }}
