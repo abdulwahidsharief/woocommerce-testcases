@@ -24,9 +24,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-      - uses: php-actions/composer@v5
+      - uses: php-actions/composer@v6
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@v2
+        uses: php-actions/phpunit@v3
         env:
           TEST_NAME: UnitTests
         with:
