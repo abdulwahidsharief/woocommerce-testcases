@@ -52,7 +52,6 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'Gettext\\Languages\\' => array($vendorDir . '/gettext/languages/src'),
     'Gettext\\' => array($vendorDir . '/gettext/gettext/src'),
-    'Example\\' => array($baseDir . '/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
@@ -67,5 +66,5 @@ return array(
     'Codeception\\Extension\\' => array($vendorDir . '/codeception/codeception/ext'),
     'Codeception\\' => array($vendorDir . '/codeception/stub/src', $vendorDir . '/codeception/codeception/src/Codeception', $vendorDir . '/lucatume/wp-browser/src/Codeception'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
-    '' => array($vendorDir . '/wp-cli/widget-command/src', $vendorDir . '/wp-cli/super-admin-command/src', $vendorDir . '/wp-cli/shell-command/src', $vendorDir . '/wp-cli/server-command/src', $vendorDir . '/wp-cli/search-replace-command/src', $vendorDir . '/wp-cli/role-command/src', $vendorDir . '/wp-cli/scaffold-command/src', $vendorDir . '/wp-cli/rewrite-command/src', $vendorDir . '/wp-cli/package-command/src', $vendorDir . '/wp-cli/media-command/src', $vendorDir . '/wp-cli/language-command/src', $vendorDir . '/wp-cli/import-command/src', $vendorDir . '/wp-cli/extension-command/src', $vendorDir . '/wp-cli/export-command/src', $vendorDir . '/wp-cli/eval-command/src', $vendorDir . '/wp-cli/entity-command/src', $vendorDir . '/wp-cli/db-command/src', $vendorDir . '/wp-cli/cron-command/src', $vendorDir . '/wp-cli/core-command/src', $vendorDir . '/wp-cli/config-command/src', $vendorDir . '/wp-cli/checksum-command/src', $vendorDir . '/wp-cli/cache-command/src'),
+    '' => array($vendorDir . '/wp-cli/widget-command/src', $vendorDir . '/wp-cli/super-admin-command/src', $vendorDir . '/wp-cli/shell-command/src', $vendorDir . '/wp-cli/server-command/src', $vendorDir . '/wp-cli/search-replace-command/src', $vendorDir . '/wp-cli/scaffold-command/src', $vendorDir . '/wp-cli/role-command/src', $vendorDir . '/wp-cli/rewrite-command/src', $vendorDir . '/wp-cli/package-command/src', $vendorDir . '/wp-cli/media-command/src', $vendorDir . '/wp-cli/language-command/src', $vendorDir . '/wp-cli/import-command/src', $vendorDir . '/wp-cli/extension-command/src', $vendorDir . '/wp-cli/export-command/src', $vendorDir . '/wp-cli/eval-command/src', $vendorDir . '/wp-cli/entity-command/src', $vendorDir . '/wp-cli/db-command/src', $vendorDir . '/wp-cli/cron-command/src', $vendorDir . '/wp-cli/core-command/src', $vendorDir . '/wp-cli/config-command/src', $vendorDir . '/wp-cli/checksum-command/src', $vendorDir . '/wp-cli/cache-command/src'),
 );
