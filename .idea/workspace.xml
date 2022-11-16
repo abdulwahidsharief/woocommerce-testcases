@@ -19,18 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/woocommerce-testcases.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/woocommerce-testcases.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EnvGreeter.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Greeter.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/EnvGreeterTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/GreeterTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/phpunit.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +102,7 @@
       <updated>1666169703557</updated>
       <workItem from="1666169704849" duration="4694000" />
       <workItem from="1666269653270" duration="1574000" />
-      <workItem from="1668586397258" duration="963000" />
+      <workItem from="1668586397258" duration="1420000" />
     </task>
     <servers />
   </component>
