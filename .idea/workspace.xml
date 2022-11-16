@@ -22,6 +22,7 @@
     <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.wp-install.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.wp-install.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +195,7 @@
       <updated>1666169703557</updated>
       <workItem from="1666169704849" duration="4694000" />
       <workItem from="1666269653270" duration="1574000" />
-      <workItem from="1668586397258" duration="1817000" />
+      <workItem from="1668586397258" duration="2134000" />
     </task>
     <servers />
   </component>
@@ -214,9 +215,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="421" y="174" width="597" height="490" key="find.popup" timestamp="1666264260454">
-      <screen x="0" y="0" width="1440" height="838" />
+    <state x="421" y="174" width="597" height="490" key="find.popup" timestamp="1668588523264">
+      <screen x="0" y="0" width="1440" height="836" />
     </state>
+    <state x="421" y="174" width="597" height="490" key="find.popup/0.0.1440.836@0.0.1440.836" timestamp="1668588523264" />
     <state x="421" y="174" width="597" height="490" key="find.popup/0.0.1440.838@0.0.1440.838" timestamp="1666264260454" />
   </component>
 </project>
