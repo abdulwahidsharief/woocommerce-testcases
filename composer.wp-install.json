@@ -12,6 +12,12 @@
     "composer/installers": "^1.0",
     "wp-graphql/wp-graphql": "^0.4.0"
   },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "wp-graphql/wp-graphql": true
+    }
+  },
   "extra": {
     "installer-paths": {
       "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],

@@ -12,9 +12,7 @@
   ],
   "require-dev": {
     "valu/wp-testing-tools": "^0.4.0",
-    "lucatume/wp-browser": "~2.2",
-    "composer/installers": "^1.0",
-    "wp-graphql/wp-graphql": "^0.4.0"
+    "lucatume/wp-browser": "~2.2"
   },
   "autoload": {
     "psr-4": {
