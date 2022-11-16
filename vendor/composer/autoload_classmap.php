@@ -778,7 +778,6 @@ return array(
     'Doctrine\\Instantiator\\InstantiatorInterface' => $vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator/InstantiatorInterface.php',
     'EvalFile_Command' => $vendorDir . '/wp-cli/eval-command/src/EvalFile_Command.php',
     'Eval_Command' => $vendorDir . '/wp-cli/eval-command/src/Eval_Command.php',
-    'Example\\Example' => $baseDir . '/src/Example.php',
     'Export_Command' => $vendorDir . '/wp-cli/export-command/src/Export_Command.php',
     'Gettext\\BaseTranslator' => $vendorDir . '/gettext/gettext/src/BaseTranslator.php',
     'Gettext\\Extractors\\Blade' => $vendorDir . '/gettext/gettext/src/Extractors/Blade.php',
