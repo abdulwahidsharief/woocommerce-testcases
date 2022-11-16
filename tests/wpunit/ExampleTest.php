@@ -25,6 +25,7 @@ class ExampleTest extends \Codeception\TestCase\WPTestCase
 
     public function testInit()
     {
+        var_dump(EXAMPLE);
         $this->assertEquals(EXAMPLE, 'initialized');
     }
 
