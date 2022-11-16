@@ -55,8 +55,12 @@
     "psr-4": {
       "WpOrg\\Requests\\": "src/"
     },
-    "classmap": ["library/Requests.php"],
-    "files": ["library/Deprecated.php"]
+    "classmap": [
+      "library/Requests.php"
+    ],
+    "files": [
+      "library/Deprecated.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
