@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/phpunit/includes/mock-mailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/phpunit/includes/mock-mailer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +200,7 @@
       <updated>1666169703557</updated>
       <workItem from="1666169704849" duration="4694000" />
       <workItem from="1666269653270" duration="1574000" />
-      <workItem from="1668586397258" duration="13760000" />
+      <workItem from="1668586397258" duration="15963000" />
     </task>
     <servers />
   </component>
@@ -219,10 +220,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="710" y="170" width="613" height="490" key="find.popup" timestamp="1668660125863">
+    <state x="710" y="170" width="613" height="490" key="find.popup" timestamp="1668662101569">
       <screen x="0" y="0" width="1440" height="836" />
     </state>
-    <state x="710" y="170" width="613" height="490" key="find.popup/0.0.1440.836@0.0.1440.836" timestamp="1668660125863" />
+    <state x="710" y="170" width="613" height="490" key="find.popup/0.0.1440.836@0.0.1440.836" timestamp="1668662101569" />
     <state x="421" y="174" width="597" height="490" key="find.popup/0.0.1440.838@0.0.1440.838" timestamp="1666264260454" />
   </component>
 </project>

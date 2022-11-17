@@ -1,12 +1,12 @@
 {
-  "name": "example/example",
-  "description": "Example",
+  "name": "Razorpay for WooCommerce",
+  "description": "Razorpay Payment Gateway Integration for WooCommerce",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [
     {
-      "name": "Esa-Matti Suuronen",
-      "email": "esa-matti.suuronen@valu.fi",
+      "name": "Team Razorpay",
+      "email": "",
       "role": "developer"
     }
   ],

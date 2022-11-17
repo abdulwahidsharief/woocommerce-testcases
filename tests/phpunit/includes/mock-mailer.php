@@ -1,6 +1,10 @@
 <?php
-//require_once ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
-//require_once ABSPATH . 'wp-includes/PHPMailer/Exception.php';
+require_once ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
+require_once ABSPATH . 'wp-includes/PHPMailer/Exception.php';
+
+$path    = ABSPATH;
+$files = scandir($path);
+echo json_encode($files);
 
 class MockPHPMailer extends PHPMailer\PHPMailer\PHPMailer {
 	public $mock_sent = array();
