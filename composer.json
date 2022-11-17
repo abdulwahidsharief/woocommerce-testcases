@@ -24,8 +24,5 @@
       "phpunit",
       "@functional"
     ]
-  },
-  "config": {
-    "optimize-autoloader": true
   }
 }
