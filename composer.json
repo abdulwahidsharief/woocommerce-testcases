@@ -17,5 +17,9 @@
   },
   "scripts": {
     "wp-install": "wp-install --full --env-file .env --wp-composer-file composer.wp-install.json",
+    "tests": "phpunit",
+    "test": [
+      "phpunit",
+    ]
   }
 }
