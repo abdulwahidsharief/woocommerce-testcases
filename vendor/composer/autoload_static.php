@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2
+class ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -419,9 +419,9 @@ class ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2
         2 => __DIR__ . '/..' . '/wp-cli/shell-command/src',
         3 => __DIR__ . '/..' . '/wp-cli/server-command/src',
         4 => __DIR__ . '/..' . '/wp-cli/search-replace-command/src',
-        5 => __DIR__ . '/..' . '/wp-cli/scaffold-command/src',
-        6 => __DIR__ . '/..' . '/wp-cli/role-command/src',
-        7 => __DIR__ . '/..' . '/wp-cli/rewrite-command/src',
+        5 => __DIR__ . '/..' . '/wp-cli/role-command/src',
+        6 => __DIR__ . '/..' . '/wp-cli/rewrite-command/src',
+        7 => __DIR__ . '/..' . '/wp-cli/scaffold-command/src',
         8 => __DIR__ . '/..' . '/wp-cli/package-command/src',
         9 => __DIR__ . '/..' . '/wp-cli/media-command/src',
         10 => __DIR__ . '/..' . '/wp-cli/language-command/src',
@@ -3428,11 +3428,11 @@ class ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit1e81ee03929c8e087973a6b9d0217fc2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita61c5b8d823f263943ab1c130e5f3cde::$classMap;
 
         }, null, ClassLoader::class);
     }
