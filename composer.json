@@ -27,9 +27,5 @@
   },
   "config": {
     "optimize-autoloader": true
-  },
-  "support": {
-    "issues": "https://github.com/example/example/issues",
-    "source": "https://github.com/example/example"
   }
 }
