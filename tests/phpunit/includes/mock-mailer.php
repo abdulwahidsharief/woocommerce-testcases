@@ -1,5 +1,5 @@
 <?php
-require_once ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
+require_once '/home/runner/work/woocommerce-testcases/woocommerce-testcases/wp-includes/PHPMailer/PHPMailer.php';
 require_once ABSPATH . 'wp-includes/PHPMailer/Exception.php';
 
 class MockPHPMailer extends PHPMailer\PHPMailer\PHPMailer {
