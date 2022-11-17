@@ -1,6 +1,6 @@
 <?php
-require_once '/home/runner/work/woocommerce-testcases/woocommerce-testcases/.wp-install/web/wp-includes/PHPMailer/PHPMailer.php';
-require_once  'home/runner/work/woocommerce-testcases/woocommerce-testcases/.wp-install/web/wp-includes/PHPMailer/Exception.php';
+require_once ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
+require_once ABSPATH . 'wp-includes/PHPMailer/Exception.php';
 
 class MockPHPMailer extends PHPMailer\PHPMailer\PHPMailer {
 	public $mock_sent = array();
