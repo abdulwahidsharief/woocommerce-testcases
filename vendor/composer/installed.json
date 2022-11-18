@@ -6198,6 +6198,47 @@
             "install-path": "../theseer/tokenizer"
         },
         {
+            "name": "valu/wp-testing-tools",
+            "version": "v0.4.2",
+            "version_normalized": "0.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/valu-digital/wp-testing-tools.git",
+                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/valu-digital/wp-testing-tools/zipball/7ae4bdb2452277ced294a82565fd5119d03e6771",
+                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771",
+                "shasum": ""
+            },
+            "time": "2019-12-11T19:10:55+00:00",
+            "bin": [
+                "tools/wp-install",
+                "tools/wp-plugin-release",
+                "tools/wptt-configure"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Esa-Matti Suuronen",
+                    "email": "esa-matti.suuronen@valu.fi",
+                    "role": "developer"
+                }
+            ],
+            "description": "Testing tools for WordPress",
+            "support": {
+                "issues": "https://github.com/valu-digital/wp-testing-tools/issues",
+                "source": "https://github.com/valu-digital/wp-testing-tools"
+            },
+            "install-path": "../valu/wp-testing-tools"
+        },
+        {
             "name": "voku/portable-ascii",
             "version": "1.6.1",
             "version_normalized": "1.6.1.0",
@@ -8736,6 +8777,7 @@
         "symfony/translation-contracts",
         "symfony/yaml",
         "theseer/tokenizer",
+        "valu/wp-testing-tools",
         "voku/portable-ascii",
         "vria/nodiacritic",
         "wp-cli/cache-command",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bf86e66015a308aa474b69302ed5f5c",
+    "content-hash": "35b339d7c40aa2ff6f94cc1b8fac1cef",
     "packages": [],
     "packages-dev": [
         {
@@ -5936,6 +5936,44 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "valu/wp-testing-tools",
+            "version": "v0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/valu-digital/wp-testing-tools.git",
+                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/valu-digital/wp-testing-tools/zipball/7ae4bdb2452277ced294a82565fd5119d03e6771",
+                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771",
+                "shasum": ""
+            },
+            "bin": [
+                "tools/wp-install",
+                "tools/wp-plugin-release",
+                "tools/wptt-configure"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Esa-Matti Suuronen",
+                    "email": "esa-matti.suuronen@valu.fi",
+                    "role": "developer"
+                }
+            ],
+            "description": "Testing tools for WordPress",
+            "support": {
+                "issues": "https://github.com/valu-digital/wp-testing-tools/issues",
+                "source": "https://github.com/valu-digital/wp-testing-tools"
+            },
+            "time": "2019-12-11T19:10:55+00:00"
         },
         {
             "name": "voku/portable-ascii",
