@@ -18,9 +18,10 @@
   "scripts": {
     "wp-install": "wp-install --full --env-file .env --wp-composer-file composer.wp-install.json",
     "tests": "phpunit",
+    "functional": "codecept run functional",
     "test": [
       "Composer\\Config::disableProcessTimeout",
-      "phpunit",
+      "phpunit"
     ]
   }
 }
