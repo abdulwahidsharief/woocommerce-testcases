@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
-        'name' => 'example/example',
+        'name' => 'abdulwahidsharief/woocommerce-testcases',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '57e66418660b871309c4de67b9ad38279e7185b6',
+        'reference' => '5274f2b193c1858e55b561312e09bc7a6c7d8f53',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'abdulwahidsharief/woocommerce-testcases' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '5274f2b193c1858e55b561312e09bc7a6c7d8f53',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'antecedent/patchwork' => array(
             'pretty_version' => '2.1.21',
             'version' => '2.1.21.0',
@@ -171,15 +180,6 @@
             'install_path' => __DIR__ . '/../eftec/bladeone',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'example/example' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '57e66418660b871309c4de67b9ad38279e7185b6',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'gettext/gettext' => array(
             'pretty_version' => 'v4.8.7',
