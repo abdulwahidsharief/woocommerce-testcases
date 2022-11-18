@@ -2511,17 +2511,17 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.18",
-            "version_normalized": "9.2.18.0",
+            "version": "9.2.19",
+            "version_normalized": "9.2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a"
+                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
-                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c77b56b63e3d2031bd8997fcec43c1925ae46559",
+                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559",
                 "shasum": ""
             },
             "require": {
@@ -2546,7 +2546,7 @@
                 "ext-pcov": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2022-10-27T13:35:33+00:00",
+            "time": "2022-11-18T07:47:47+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2579,7 +2579,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.18"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.19"
             },
             "funding": [
                 {
@@ -6198,47 +6198,6 @@
             "install-path": "../theseer/tokenizer"
         },
         {
-            "name": "valu/wp-testing-tools",
-            "version": "v0.4.2",
-            "version_normalized": "0.4.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/valu-digital/wp-testing-tools.git",
-                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/valu-digital/wp-testing-tools/zipball/7ae4bdb2452277ced294a82565fd5119d03e6771",
-                "reference": "7ae4bdb2452277ced294a82565fd5119d03e6771",
-                "shasum": ""
-            },
-            "time": "2019-12-11T19:10:55+00:00",
-            "bin": [
-                "tools/wp-install",
-                "tools/wp-plugin-release",
-                "tools/wptt-configure"
-            ],
-            "type": "library",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Esa-Matti Suuronen",
-                    "email": "esa-matti.suuronen@valu.fi",
-                    "role": "developer"
-                }
-            ],
-            "description": "Testing tools for WordPress",
-            "support": {
-                "issues": "https://github.com/valu-digital/wp-testing-tools/issues",
-                "source": "https://github.com/valu-digital/wp-testing-tools"
-            },
-            "install-path": "../valu/wp-testing-tools"
-        },
-        {
             "name": "voku/portable-ascii",
             "version": "1.6.1",
             "version_normalized": "1.6.1.0",
@@ -8777,7 +8736,6 @@
         "symfony/translation-contracts",
         "symfony/yaml",
         "theseer/tokenizer",
-        "valu/wp-testing-tools",
         "voku/portable-ascii",
         "vria/nodiacritic",
         "wp-cli/cache-command",
