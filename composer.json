@@ -16,11 +16,6 @@
     "yoast/phpunit-polyfills": "^1.0"
   },
   "scripts": {
-    "wp-install": "wp-install --full --env-file .env --wp-composer-file composer.wp-install.json",
-    "tests": "phpunit",
-    "test": [
-      "Composer\\Config::disableProcessTimeout",
-      "phpunit"
-    ]
+    "wp-install": "wp-install --full --env-file .env --wp-composer-file composer.wp-install.json"
   }
 }
