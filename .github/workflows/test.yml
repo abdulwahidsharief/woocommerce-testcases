@@ -14,12 +14,15 @@ jobs:
                 # Ensure docker waits for mariadb to start
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            php-versions: [ '7.2','7.3','7.4', '8.0', '8.1' ]
         steps:
             - uses: actions/checkout@v1
             - name: Set up PHP
               uses: shivammathur/setup-php@v2
               with:
-                php-version: "7.4"
+                php-version: ${{ matrix.php-versions }}
 
             - uses: actions/cache@v1
               id: cache-composer
