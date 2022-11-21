@@ -119,6 +119,7 @@
       <path value="$PROJECT_DIR$/vendor/bordoni/phpass" />
       <path value="$PROJECT_DIR$/vendor/codeception/stub" />
       <path value="$PROJECT_DIR$/vendor/codeception/phpunit-wrapper" />
+      <path value="$PROJECT_DIR$/vendor/valu/wp-testing-tools" />
     </include_path>
   </component>
   <component name="PhpUnit">
