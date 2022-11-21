@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/woocommerce-testcases.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/woocommerce-testcases.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,73 +44,25 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/gettext/gettext" />
-      <path value="$PROJECT_DIR$/vendor/gettext/languages" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/search-replace-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/cache-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/checksum-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/shell-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/wp-cli-bundle" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/role-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/scaffold-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/widget-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/core-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/db-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/extension-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/cron-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/package-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/rewrite-command" />
       <path value="$PROJECT_DIR$/vendor/wp-cli/mustangostang-spyc" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/eval-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/import-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/entity-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/language-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/super-admin-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/wp-config-transformer" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/config-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/export-command" />
       <path value="$PROJECT_DIR$/vendor/wp-cli/php-cli-tools" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/maintenance-mode-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/server-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/embed-command" />
       <path value="$PROJECT_DIR$/vendor/wp-cli/wp-cli" />
       <path value="$PROJECT_DIR$/vendor/rmccue/requests" />
       <path value="$PROJECT_DIR$/vendor/yoast/phpunit-polyfills" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/i18n-command" />
-      <path value="$PROJECT_DIR$/vendor/wp-cli/media-command" />
-      <path value="$PROJECT_DIR$/vendor/mck89/peast" />
-      <path value="$PROJECT_DIR$/vendor/eftec/bladeone" />
-      <path value="$PROJECT_DIR$/vendor/react/promise" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/valu/wp-testing-tools" />
-      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/nb/oxymel" />
-      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/vendor/sebastian/code-unit" />
       <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
@@ -169,7 +121,7 @@
       <updated>1666169703557</updated>
       <workItem from="1666169704849" duration="4694000" />
       <workItem from="1666269653270" duration="1574000" />
-      <workItem from="1668586397258" duration="34109000" />
+      <workItem from="1668586397258" duration="34215000" />
     </task>
     <servers />
   </component>
