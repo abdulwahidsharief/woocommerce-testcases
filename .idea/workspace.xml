@@ -21,8 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="04307750-4b0e-401b-8cac-dc906893833c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.github/run-tests" beforeDir="false" afterPath="$PROJECT_DIR$/.github/run-tests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +167,7 @@
       <updated>1666169703557</updated>
       <workItem from="1666169704849" duration="4694000" />
       <workItem from="1666269653270" duration="1574000" />
-      <workItem from="1668586397258" duration="41227000" />
+      <workItem from="1668586397258" duration="41313000" />
     </task>
     <servers />
   </component>
