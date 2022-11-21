@@ -139,8 +139,8 @@ class ComposerStaticInit422f6914b7ad805bac4fe538625bbc68
         ),
         'WP_CLI\\' => 
         array (
-            0 => __DIR__ . '/..' . '/wp-cli/shell-command/src/WP_CLI',
-            1 => __DIR__ . '/..' . '/wp-cli/entity-command/src/WP_CLI',
+            0 => __DIR__ . '/..' . '/wp-cli/entity-command/src/WP_CLI',
+            1 => __DIR__ . '/..' . '/wp-cli/shell-command/src/WP_CLI',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -277,28 +277,28 @@ class ComposerStaticInit422f6914b7ad805bac4fe538625bbc68
     );
 
     public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/wp-cli/widget-command/src',
-        1 => __DIR__ . '/..' . '/wp-cli/super-admin-command/src',
-        2 => __DIR__ . '/..' . '/wp-cli/shell-command/src',
-        3 => __DIR__ . '/..' . '/wp-cli/server-command/src',
-        4 => __DIR__ . '/..' . '/wp-cli/search-replace-command/src',
-        5 => __DIR__ . '/..' . '/wp-cli/role-command/src',
-        6 => __DIR__ . '/..' . '/wp-cli/rewrite-command/src',
-        7 => __DIR__ . '/..' . '/wp-cli/scaffold-command/src',
-        8 => __DIR__ . '/..' . '/wp-cli/package-command/src',
-        9 => __DIR__ . '/..' . '/wp-cli/media-command/src',
-        10 => __DIR__ . '/..' . '/wp-cli/language-command/src',
-        11 => __DIR__ . '/..' . '/wp-cli/import-command/src',
-        12 => __DIR__ . '/..' . '/wp-cli/extension-command/src',
-        13 => __DIR__ . '/..' . '/wp-cli/export-command/src',
-        14 => __DIR__ . '/..' . '/wp-cli/eval-command/src',
-        15 => __DIR__ . '/..' . '/wp-cli/entity-command/src',
-        16 => __DIR__ . '/..' . '/wp-cli/db-command/src',
-        17 => __DIR__ . '/..' . '/wp-cli/cron-command/src',
-        18 => __DIR__ . '/..' . '/wp-cli/core-command/src',
-        19 => __DIR__ . '/..' . '/wp-cli/config-command/src',
-        20 => __DIR__ . '/..' . '/wp-cli/checksum-command/src',
-        21 => __DIR__ . '/..' . '/wp-cli/cache-command/src',
+        0 => __DIR__ . '/..' . '/wp-cli/cache-command/src',
+        1 => __DIR__ . '/..' . '/wp-cli/checksum-command/src',
+        2 => __DIR__ . '/..' . '/wp-cli/config-command/src',
+        3 => __DIR__ . '/..' . '/wp-cli/core-command/src',
+        4 => __DIR__ . '/..' . '/wp-cli/cron-command/src',
+        5 => __DIR__ . '/..' . '/wp-cli/db-command/src',
+        6 => __DIR__ . '/..' . '/wp-cli/entity-command/src',
+        7 => __DIR__ . '/..' . '/wp-cli/eval-command/src',
+        8 => __DIR__ . '/..' . '/wp-cli/export-command/src',
+        9 => __DIR__ . '/..' . '/wp-cli/extension-command/src',
+        10 => __DIR__ . '/..' . '/wp-cli/import-command/src',
+        11 => __DIR__ . '/..' . '/wp-cli/language-command/src',
+        12 => __DIR__ . '/..' . '/wp-cli/media-command/src',
+        13 => __DIR__ . '/..' . '/wp-cli/package-command/src',
+        14 => __DIR__ . '/..' . '/wp-cli/rewrite-command/src',
+        15 => __DIR__ . '/..' . '/wp-cli/role-command/src',
+        16 => __DIR__ . '/..' . '/wp-cli/scaffold-command/src',
+        17 => __DIR__ . '/..' . '/wp-cli/search-replace-command/src',
+        18 => __DIR__ . '/..' . '/wp-cli/server-command/src',
+        19 => __DIR__ . '/..' . '/wp-cli/shell-command/src',
+        20 => __DIR__ . '/..' . '/wp-cli/super-admin-command/src',
+        21 => __DIR__ . '/..' . '/wp-cli/widget-command/src',
     );
 
     public static $prefixesPsr0 = array (
