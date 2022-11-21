@@ -1,7 +1,7 @@
 <?php
 
 // change the next line to points to your wordpress dir
-define( 'ABSPATH',  realpath(dirname(__FILE__) . '/../../').'/.wp-install/web/'.);
+define( 'ABSPATH',  realpath(dirname(__FILE__) . '/../../').'/.wp-install/web/');
 //define( 'ABSPATH',  '/home/runner/work/woocommerce-testcases/woocommerce-testcases/.wp-install/web/');
 
 define( 'PLUGIN_DIR',  realpath(dirname(__FILE__) . '/../../'));
