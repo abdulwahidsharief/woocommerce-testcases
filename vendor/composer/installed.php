@@ -3,7 +3,7 @@
         'name' => 'abdulwahidsharief/woocommerce-testcases',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b33145f0ed15a41fbb32fc942ced86df9b09c65c',
+        'reference' => '9c8458726474f9078e50ecb811a38a009631f680',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'abdulwahidsharief/woocommerce-testcases' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b33145f0ed15a41fbb32fc942ced86df9b09c65c',
+            'reference' => '9c8458726474f9078e50ecb811a38a009631f680',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
