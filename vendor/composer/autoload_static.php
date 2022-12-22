@@ -46,7 +46,6 @@ class ComposerStaticInitd75f4bc2a98597ddf9fc868c7c49254f
         '129d58fa8151374aceb8571bcaa97504' => __DIR__ . '/..' . '/wp-cli/shell-command/shell-command.php',
         '8519779bbb65eeb842af2f629ce7b6f8' => __DIR__ . '/..' . '/wp-cli/super-admin-command/super-admin-command.php',
         '1f05372afcc7d0c51a305cef1d56dd01' => __DIR__ . '/..' . '/wp-cli/widget-command/widget-command.php',
-        '051bafe20e2674435a162870efa2d2a7' => __DIR__ . '/..' . '/brain/monkey/inc/api.php',
         '7d3b315c4f303f2fc14aca642a738e50' => __DIR__ . '/..' . '/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php',
     );
 
@@ -118,10 +117,6 @@ class ComposerStaticInitd75f4bc2a98597ddf9fc868c7c49254f
             'Composer\\MetadataMinifier\\' => 26,
             'Composer\\CaBundle\\' => 18,
             'Composer\\' => 9,
-        ),
-        'B' => 
-        array (
-            'Brain\\Monkey\\' => 13,
         ),
     );
 
@@ -278,10 +273,6 @@ class ComposerStaticInitd75f4bc2a98597ddf9fc868c7c49254f
         'Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/composer/src/Composer',
-        ),
-        'Brain\\Monkey\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/brain/monkey/src',
         ),
     );
 

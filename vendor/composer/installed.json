@@ -1,130 +1,6 @@
 {
     "packages": [
         {
-            "name": "antecedent/patchwork",
-            "version": "2.1.21",
-            "version_normalized": "2.1.21.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/antecedent/patchwork.git",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/antecedent/patchwork/zipball/25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
-                "reference": "25c1fa0cd9a6e6d0d13863d8df8f050b6733f16d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4"
-            },
-            "time": "2022-02-07T07:28:34+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ignas Rudaitis",
-                    "email": "ignas.rudaitis@gmail.com"
-                }
-            ],
-            "description": "Method redefinition (monkey-patching) functionality for PHP.",
-            "homepage": "http://patchwork2.org/",
-            "keywords": [
-                "aop",
-                "aspect",
-                "interception",
-                "monkeypatching",
-                "redefinition",
-                "runkit",
-                "testing"
-            ],
-            "support": {
-                "issues": "https://github.com/antecedent/patchwork/issues",
-                "source": "https://github.com/antecedent/patchwork/tree/2.1.21"
-            },
-            "install-path": "../antecedent/patchwork"
-        },
-        {
-            "name": "brain/monkey",
-            "version": "2.6.1",
-            "version_normalized": "2.6.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Brain-WP/BrainMonkey.git",
-                "reference": "a31c84515bb0d49be9310f52ef1733980ea8ffbb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Brain-WP/BrainMonkey/zipball/a31c84515bb0d49be9310f52ef1733980ea8ffbb",
-                "reference": "a31c84515bb0d49be9310f52ef1733980ea8ffbb",
-                "shasum": ""
-            },
-            "require": {
-                "antecedent/patchwork": "^2.1.17",
-                "mockery/mockery": "^1.3.5 || ^1.4.4",
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/php-compatibility": "^9.3.0",
-                "phpunit/phpunit": "^5.7.26 || ^6.0 || ^7.0 || >=8.0 <8.5.12 || ^8.5.14 || ^9.0"
-            },
-            "time": "2021-11-11T15:53:55+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-version/1": "1.x-dev",
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "inc/api.php"
-                ],
-                "psr-4": {
-                    "Brain\\Monkey\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Giuseppe Mazzapica",
-                    "email": "giuseppe.mazzapica@gmail.com",
-                    "homepage": "https://gmazzap.me",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Mocking utility for PHP functions and WordPress plugin API",
-            "keywords": [
-                "Monkey Patching",
-                "interception",
-                "mock",
-                "mock functions",
-                "mockery",
-                "patchwork",
-                "redefinition",
-                "runkit",
-                "test",
-                "testing"
-            ],
-            "support": {
-                "issues": "https://github.com/Brain-WP/BrainMonkey/issues",
-                "source": "https://github.com/Brain-WP/BrainMonkey"
-            },
-            "install-path": "../brain/monkey"
-        },
-        {
             "name": "composer/ca-bundle",
             "version": "1.3.4",
             "version_normalized": "1.3.4.0",
@@ -1578,17 +1454,17 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.21",
-            "version_normalized": "9.2.21.0",
+            "version": "9.2.22",
+            "version_normalized": "9.2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0"
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e4bf60d2220b4baaa0572986b5d69870226b06df",
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df",
                 "shasum": ""
             },
             "require": {
@@ -1613,7 +1489,7 @@
                 "ext-pcov": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2022-12-14T13:26:54+00:00",
+            "time": "2022-12-18T16:40:55+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1646,7 +1522,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.21"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.22"
             },
             "funding": [
                 {
@@ -4276,17 +4152,17 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.1.1",
-            "version_normalized": "3.1.1.0",
+            "version": "v3.2.0",
+            "version_normalized": "3.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "925e713fe8fcacf6bc05e936edd8dd5441a21239"
+                "reference": "aac98028c69df04ee77eb69b96b86ee51fbf4b75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/925e713fe8fcacf6bc05e936edd8dd5441a21239",
-                "reference": "925e713fe8fcacf6bc05e936edd8dd5441a21239",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/aac98028c69df04ee77eb69b96b86ee51fbf4b75",
+                "reference": "aac98028c69df04ee77eb69b96b86ee51fbf4b75",
                 "shasum": ""
             },
             "require": {
@@ -4299,11 +4175,11 @@
             "suggest": {
                 "symfony/service-implementation": ""
             },
-            "time": "2022-05-30T19:18:58+00:00",
+            "time": "2022-11-25T10:21:52+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.1-dev"
+                    "dev-main": "3.3-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -4344,7 +4220,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.1.1"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.2.0"
             },
             "funding": [
                 {
@@ -4364,17 +4240,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v6.2.0",
-            "version_normalized": "6.2.0.0",
+            "version": "v6.2.2",
+            "version_normalized": "6.2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "145702685e0d12f81d755c71127bfff7582fdd36"
+                "reference": "863219fd713fa41cbcd285a79723f94672faff4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/145702685e0d12f81d755c71127bfff7582fdd36",
-                "reference": "145702685e0d12f81d755c71127bfff7582fdd36",
+                "url": "https://api.github.com/repos/symfony/string/zipball/863219fd713fa41cbcd285a79723f94672faff4d",
+                "reference": "863219fd713fa41cbcd285a79723f94672faff4d",
                 "shasum": ""
             },
             "require": {
@@ -4394,7 +4270,7 @@
                 "symfony/translation-contracts": "^2.0|^3.0",
                 "symfony/var-exporter": "^5.4|^6.0"
             },
-            "time": "2022-11-30T17:13:47+00:00",
+            "time": "2022-12-14T16:11:27+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4433,7 +4309,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.2.0"
+                "source": "https://github.com/symfony/string/tree/v6.2.2"
             },
             "funding": [
                 {
@@ -5495,17 +5371,17 @@
         },
         {
             "name": "wp-cli/i18n-command",
-            "version": "v2.4.0",
-            "version_normalized": "2.4.0.0",
+            "version": "v2.4.1",
+            "version_normalized": "2.4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/i18n-command.git",
-                "reference": "45bc2b47a4ed103b871cd2ec5b483ab55ad12d99"
+                "reference": "22f7e6aa6ba23d0b50c45c75386c8151b991477e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/i18n-command/zipball/45bc2b47a4ed103b871cd2ec5b483ab55ad12d99",
-                "reference": "45bc2b47a4ed103b871cd2ec5b483ab55ad12d99",
+                "url": "https://api.github.com/repos/wp-cli/i18n-command/zipball/22f7e6aa6ba23d0b50c45c75386c8151b991477e",
+                "reference": "22f7e6aa6ba23d0b50c45c75386c8151b991477e",
                 "shasum": ""
             },
             "require": {
@@ -5522,7 +5398,7 @@
                 "ext-json": "Used for reading and generating JSON translation files",
                 "ext-mbstring": "Used for calculating include/exclude matches in code extraction"
             },
-            "time": "2022-07-04T21:43:20+00:00",
+            "time": "2022-12-09T19:09:17+00:00",
             "type": "wp-cli-package",
             "extra": {
                 "branch-alias": {
@@ -5560,7 +5436,7 @@
             "homepage": "https://github.com/wp-cli/i18n-command",
             "support": {
                 "issues": "https://github.com/wp-cli/i18n-command/issues",
-                "source": "https://github.com/wp-cli/i18n-command/tree/v2.4.0"
+                "source": "https://github.com/wp-cli/i18n-command/tree/v2.4.1"
             },
             "install-path": "../wp-cli/i18n-command"
         },
@@ -6803,8 +6679,6 @@
     ],
     "dev": true,
     "dev-package-names": [
-        "antecedent/patchwork",
-        "brain/monkey",
         "composer/ca-bundle",
         "composer/composer",
         "composer/metadata-minifier",

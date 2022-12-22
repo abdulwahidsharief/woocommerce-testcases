@@ -45,6 +45,5 @@ return array(
     '129d58fa8151374aceb8571bcaa97504' => $vendorDir . '/wp-cli/shell-command/shell-command.php',
     '8519779bbb65eeb842af2f629ce7b6f8' => $vendorDir . '/wp-cli/super-admin-command/super-admin-command.php',
     '1f05372afcc7d0c51a305cef1d56dd01' => $vendorDir . '/wp-cli/widget-command/widget-command.php',
-    '051bafe20e2674435a162870efa2d2a7' => $vendorDir . '/brain/monkey/inc/api.php',
     '7d3b315c4f303f2fc14aca642a738e50' => $vendorDir . '/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php',
 );
