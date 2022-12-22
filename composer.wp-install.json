@@ -13,6 +13,10 @@
     "woocommerce/woocommerce": "^2.7"
   },
   "config": {
+    "platform": {
+      "php": "7.4",
+      "psr/log": "^1.0"
+    },
     "allow-plugins": {
       "composer/installers": true,
       "woocommerce/woocommerce": true
