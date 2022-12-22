@@ -10,7 +10,7 @@
   ],
   "require": {
     "composer/installers": "^2.2",
-    "woocommerce/woocommerce": "^7.0"
+    "woocommerce/woocommerce": "^5.9.1"
   },
   "config": {
     "allow-plugins": {
