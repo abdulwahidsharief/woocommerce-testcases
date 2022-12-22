@@ -15,18 +15,18 @@ if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 }
 
-require_once __DIR__ . '/includes/razorpay-webhook.php';
-require_once __DIR__ . '/razorpay-sdk/Razorpay.php';
+require_once __DIR__.'/includes/razorpay-webhook.php';
+require_once __DIR__.'/razorpay-sdk/Razorpay.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
-require_once __DIR__ . '/includes/razorpay-route.php';
-require_once __DIR__ . '/includes/razorpay-route-actions.php';
-require_once __DIR__ . '/includes/api/api.php';
-require_once __DIR__ . '/includes/utils.php';
-require_once __DIR__ . '/includes/state-map.php';
-require_once __DIR__ . '/includes/plugin-instrumentation.php';
-require_once __DIR__ . '/includes/support/cartbounty.php';
-require_once __DIR__ . '/includes/support/wati.php';
-require_once __DIR__ . '/includes/razorpay-affordability-widget.php';
+require_once __DIR__.'/includes/razorpay-route.php';
+require_once __DIR__ .'/includes/razorpay-route-actions.php';
+require_once __DIR__.'/includes/api/api.php';
+require_once __DIR__.'/includes/utils.php';
+require_once __DIR__.'/includes/state-map.php';
+require_once __DIR__.'/includes/plugin-instrumentation.php';
+require_once __DIR__.'/includes/support/cartbounty.php';
+require_once __DIR__.'/includes/support/wati.php';
+require_once __DIR__.'/includes/razorpay-affordability-widget.php';
 
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
@@ -35,8 +35,8 @@ add_action('plugins_loaded', 'woocommerce_razorpay_init', 0);
 add_action('admin_post_nopriv_rzp_wc_webhook', 'razorpay_webhook_init', 10);
 
 // instrumentation hooks
-add_action('activated_plugin', 'razorpayPluginActivated', 10, 2 );
-add_action('deactivated_plugin', 'razorpayPluginDeactivated', 10, 2 );
+register_activation_hook(__FILE__, 'razorpayPluginActivated', 10, 2 );
+register_deactivation_hook(__FILE__, 'razorpayPluginDeactivated', 10, 2 );
 add_action('upgrader_process_complete', 'razorpayPluginUpgraded', 10, 2);
 
 
