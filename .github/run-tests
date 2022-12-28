@@ -8,7 +8,7 @@ export PATH="$(pwd)/vendor/bin:$PATH"
 
 
 composer install
-composer wp-install --ignore-platform-req IGNORE-PLATFORM-REQ
+composer wp-install
 
 if [ "$(wp-install --status)" = "full" ]; then
     wp-install --serve &
