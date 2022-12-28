@@ -15,8 +15,7 @@
   "config": {
     "allow-plugins": {
       "composer/installers": true,
-      "woocommerce/woocommerce": true,
-      "automattic/jetpack-autoloader": true
+      "woocommerce/woocommerce": true
     }
   },
   "extra": {
