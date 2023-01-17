@@ -24,7 +24,7 @@ define( 'DB_HOST', '127.0.0.1' );
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 
-$table_prefix = 'wptt_tests'; // Only numbers, letters, and underscores please!
+$table_prefix = 'wpttests'; // Only numbers, letters, and underscores please!
 
 define( 'WP_TESTS_DOMAIN', '127.0.0.1' );
 define( 'WP_TESTS_EMAIL', 'admin@wp.test' );

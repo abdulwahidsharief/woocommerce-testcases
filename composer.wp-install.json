@@ -1,5 +1,5 @@
 {
-  "name": "abdulwahidsharief/woocommerce-testcases",
+  "name": "razorpay/razorpay-woocommerce",
   "type": "project",
   "license": "GPL-2.0-or-later",
   "repositories": [
@@ -10,7 +10,7 @@
   ],
   "require": {
     "composer/installers": "^1.0",
-    "woocommerce/woocommerce": "^5.9.1"
+    "woocommerce/woocommerce": "^2.6"
   },
   "config": {
     "allow-plugins": {
