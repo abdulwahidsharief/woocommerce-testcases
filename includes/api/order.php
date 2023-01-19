@@ -119,34 +119,8 @@ function createWcOrder(WP_REST_Request $request)
     }
 
     $order = wc_get_order($orderId);
-    
-    if($order){
 
-        $disableCouponFlag = false;
-
-        // Woo dynamic discount price plugin
-        if(is_plugin_active('yith-woocommerce-dynamic-pricing-and-discounts-premium/init.php')) {
-
-            foreach ($order->get_items() as $itemId => $item) {
-                $dynamicRules = $item->get_meta('_ywdpd_discounts');
-
-                if(empty($dynamicRules) == false){
-                    
-                    foreach ($dynamicRules['applied_discounts'] as $appliedDiscount) {
-                        if (isset( $appliedDiscount['set_id'])){
-                            $ruleId = $appliedDiscount['set_id'];
-                            $rule    = ywdpd_get_rule($ruleId);
-                        } else {
-                            $rule = $appliedDiscount['by'];
-                        }
-                        // check coupon is disable with discount price
-                        if($rule->is_disabled_with_other_coupon() == 1){
-                            $disableCouponFlag = true;
-                        }
-                    }
-                }
-            }
-        }
+    if ($order) {
 
         // Pixel your site PRO UTM data
         if (is_plugin_active('pixelyoursite-pro/pixelyoursite-pro.php')) {
@@ -241,10 +215,6 @@ function createWcOrder(WP_REST_Request $request)
         $response['enable_fb_analytics'] = get_option('woocommerce_razorpay_settings')['enable_1cc_fb_analytics'] === 'yes' ? true : false;
         $response['redirect']            = true;
         $response['one_click_checkout']  = true;
-
-        if($disableCouponFlag == true){
-           $response['show_coupons']  = false;
-        }
 
         if ($response['enable_fb_analytics'] === true) {
             //Customer cart related data for FB analytics.
