@@ -20,6 +20,7 @@ $GLOBALS[ 'wp_tests_options' ] = array(
 // call test-lib's bootstrap.php
 require_once $test_lib_bootstrap_file;
 
+require_once 'woo-razorpay.php';
 require_once 'tests/phpunit/util/class-util.php';
 require_once PLUGIN_DIR . '/vendor/autoload.php';
 $current_user = new WP_User( 1 );
