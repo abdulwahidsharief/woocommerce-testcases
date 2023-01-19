@@ -3,8 +3,8 @@
  * Plugin Name: Razorpay for WooCommerce
  * Plugin URI: https://razorpay.com
  * Description: Razorpay Payment Gateway Integration for WooCommerce
- * Version: 4.3.3
- * Stable tag: 4.3.3
+ * Version: 4.3.5
+ * Stable tag: 4.3.5
  * Author: Team Razorpay
  * WC tested up to: 6.7.0
  * Author URI: https://razorpay.com
@@ -35,8 +35,8 @@ add_action('plugins_loaded', 'woocommerce_razorpay_init', 0);
 add_action('admin_post_nopriv_rzp_wc_webhook', 'razorpay_webhook_init', 10);
 
 // instrumentation hooks
-register_activation_hook(__FILE__, 'razorpayPluginActivated', 10, 2 );
-register_deactivation_hook(__FILE__, 'razorpayPluginDeactivated', 10, 2 );
+register_activation_hook(__FILE__, 'razorpayPluginActivated', 10, 2);
+register_deactivation_hook(__FILE__, 'razorpayPluginDeactivated', 10, 2);
 add_action('upgrader_process_complete', 'razorpayPluginUpgraded', 10, 2);
 
 
@@ -74,7 +74,8 @@ function woocommerce_razorpay_init()
             'virtual_account.credited',
             'subscription.cancelled',
             'subscription.paused',
-            'subscription.resumed'
+            'subscription.resumed',
+            'subscription.charged'
         );
 
         protected $defaultWebhookEvents = array(
@@ -374,10 +375,15 @@ function woocommerce_razorpay_init()
             }
         }
 
+        protected function getWebhookUrl()
+        {
+            return esc_url(admin_url('admin-post.php')) . '?action=rzp_wc_webhook';
+        }
+
         public function autoEnableWebhook()
         {
             $webhookExist = false;
-            $webhookUrl   = esc_url(admin_url('admin-post.php')) . '?action=rzp_wc_webhook';
+            $webhookUrl   = $this->getWebhookUrl();
 
             $key_id      = $this->getSetting('key_id');
             $key_secret  = $this->getSetting('key_secret');
@@ -462,6 +468,18 @@ function woocommerce_razorpay_init()
                 }
             } while ( $webhook['count'] === $count);
 
+            $subscriptionWebhookFlag =  get_option('rzp_subscription_webhook_enable_flag');
+
+            if ($subscriptionWebhookFlag)
+            {
+                $this->defaultWebhookEvents += array(
+                    'subscription.cancelled' => true,
+                    'subscription.resumed'   => true,
+                    'subscription.paused'    => true,
+                    'subscription.charged'   => true
+                );
+            }
+
             $data = [
                 'url'    => $webhookUrl,
                 'active' => $enabled,
@@ -484,6 +502,14 @@ function woocommerce_razorpay_init()
                             }
                         }
 
+                        if (!$subscriptionWebhookFlag)
+                        {
+                            unset($this->defaultWebhookEvents['subscription.cancelled']);
+                            unset($this->defaultWebhookEvents['subscription.resumed']);
+                            unset($this->defaultWebhookEvents['subscription.paused']);
+                            unset($this->defaultWebhookEvents['subscription.charged']);
+                        }
+
                         $data = [
                             'url'    => $webhookUrl,
                             'active' => $enabled,
@@ -498,12 +524,12 @@ function woocommerce_razorpay_init()
             if ($webhookExist)
             {
                 rzpLogInfo('Updating razorpay webhook');
-                $this->webhookAPI('PUT', "webhooks/".$webhookId, $data);
+                return $this->webhookAPI('PUT', "webhooks/" . $webhookId, $data);
             }
             else
             {
                 rzpLogInfo('Creating razorpay webhook');
-                $this->webhookAPI('POST', "webhooks/", $data);
+                return $this->webhookAPI('POST', "webhooks/", $data);
             }
 
         }
@@ -679,6 +705,8 @@ function woocommerce_razorpay_init()
         {
             echo '<h3>'.__('Razorpay Payment Gateway', $this->id) . '</h3>';
             echo '<p>'.__('Allows payments by Credit/Debit Cards, NetBanking, UPI, and multiple Wallets') . '</p>';
+            echo '<p>'.__('First <a href="https://easy.razorpay.com/onboarding?recommended_product=payment_gateway&source=woocommerce" target="_blank">signup</a> for a Razorpay account or
+            <a href="https://dashboard.razorpay.com/signin?screen=sign_in&source=woocommerce" target="_blank">login</a> if you have an existing account.'). '</p>';
             echo '<table class="form-table">';
 
             // Generate the HTML For the settings form.
@@ -1138,7 +1166,7 @@ function woocommerce_razorpay_init()
             return $data;
         }
 
-        private function enqueueCheckoutScripts($data)
+        public function enqueueCheckoutScripts($data)
         {
             if($data === 'checkoutForm' || $data === 'routeAnalyticsForm')
             {
@@ -1707,6 +1735,15 @@ EOT;
 
             $this->UpdateOrderAddress($razorpayData, $order);
 
+            $gstNo             = $razorpayData['notes']['gstin']??'';
+            $orderInstructions  = $razorpayData['notes']['order_instructions']??'';
+
+            if($gstNo != ''){
+                $order->add_order_note( "GSTIN No. : ". $gstNo );
+            }
+            if($orderInstructions != ''){
+                $order->add_order_note( "Order Instructions: ". $orderInstructions);
+            }
 
 
             if (empty($razorpayData['promotions'][0]) === false)
@@ -2168,12 +2205,14 @@ EOT;
                     'integration_version' => get_plugin_data($pluginRoot . '/razorpay-subscriptions.php')['Version'],
                     'integration_woo_razorpay_version' => get_plugin_data(plugin_dir_path(__FILE__) . 'woo-razorpay.php')['Version'],
                     'integration_parent_version' => WOOCOMMERCE_VERSION,
+                    'integration_type' => 'plugin',
                 );
             } else {
                 return array(
                     'integration' => 'woocommerce',
                     'integration_version' => get_plugin_data(plugin_dir_path(__FILE__) . 'woo-razorpay.php')['Version'],
                     'integration_parent_version' => WOOCOMMERCE_VERSION,
+                    'integration_type' => 'plugin',
                 );
             }
         }
@@ -2330,6 +2369,10 @@ function enqueueScriptsFor1cc()
 //To add 1CC button on cart page.
 add_action( 'woocommerce_proceed_to_checkout', 'addCheckoutButton');
 
+if(isRazorpayPluginEnabled() && is1ccEnabled()) {
+   add_action('wp_head', 'addRzpSpinner');
+}
+
 function addCheckoutButton()
 {
   add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
@@ -2356,6 +2399,7 @@ function addCheckoutButton()
 //To add 1CC Mini cart checkout button
 if(isRazorpayPluginEnabled() && is1ccEnabled() && isMiniCartCheckoutEnabled())
 {
+
     add_action( 'woocommerce_widget_shopping_cart_buttons', function()
     {
         // Removing Buttons
@@ -2364,6 +2408,7 @@ if(isRazorpayPluginEnabled() && is1ccEnabled() && isMiniCartCheckoutEnabled())
         add_action('woocommerce_cart_updated', 'enqueueScriptsFor1cc', 10);
 
         add_action( 'woocommerce_widget_shopping_cart_buttons', 'addMiniCheckoutButton', 20 );
+
     }, 1 );
 }
 
@@ -2388,6 +2433,20 @@ function addMiniCheckoutButton()
 if(isRazorpayPluginEnabled() && is1ccEnabled() && isPdpCheckoutEnabled())
 {
     add_action( 'woocommerce_after_add_to_cart_button', 'addPdpCheckoutButton');
+}
+
+function addRzpSpinner()
+{
+    if (isTestModeEnabled()) {
+      $current_user = wp_get_current_user();
+      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+        $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
+        load_template( $tempTest, false, array() );
+      }
+    } else {
+      $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
+      load_template( $tempTest, false, array() );
+    }
 }
 
 function addPdpCheckoutButton()
@@ -2529,4 +2588,3 @@ function cartbounty_alter_automation_button( $button ){
 if(is_plugin_active('woo-save-abandoned-carts/cartbounty-abandoned-carts.php')){
     add_filter( 'cartbounty_automation_button_html', 'cartbounty_alter_automation_button' );
 }
-
