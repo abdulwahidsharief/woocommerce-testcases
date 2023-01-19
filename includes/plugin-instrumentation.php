@@ -1,6 +1,5 @@
 <?php
 
-use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 
 class TrackPluginInstrumentation
@@ -8,9 +7,9 @@ class TrackPluginInstrumentation
     public $api;
     public $mode;
 
-    public function __construct($key_id, $key_secret)
+    public function __construct($api, $key_id)
     {
-        $this->api = new Api($key_id, $key_secret);
+        $this->api = $api;
         $this->mode = (substr($key_id, 0, 8) === 'rzp_live') ? 'live' : 'test';
     }
 
