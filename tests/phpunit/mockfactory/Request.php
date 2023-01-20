@@ -2,8 +2,6 @@
 
 namespace Razorpay\MockApi;
 
-//require_once __DIR__ . '/Request.php';
-
 use Razorpay\MockApi\MockApi;
 use Requests;
 use Exception;

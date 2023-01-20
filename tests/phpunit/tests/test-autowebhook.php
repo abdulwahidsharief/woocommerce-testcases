@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/../mockfactory/Request.php';
+
 use Razorpay\MockApi\MockApi;
 
 class Test_AutoWebhook extends WP_UnitTestCase
