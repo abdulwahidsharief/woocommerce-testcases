@@ -22,7 +22,6 @@ require_once $test_lib_bootstrap_file;
 
 require_once 'tests/phpunit/util/class-util.php';
 require_once PLUGIN_DIR . '/vendor/autoload.php';
-echo basename(realpath(dirname(__FILE__) . '/../../')) . '/woo-razorpay.php';
 $current_user = new WP_User( 1 );
 $current_user->set_role( 'administrator' );
 
