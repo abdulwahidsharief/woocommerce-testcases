@@ -29,10 +29,10 @@ class Test_AutoWebhook extends WP_UnitTestCase
             }
         });
 
-        ob_start();
+//        ob_start();
         $response = $this->instance->autoEnableWebhook();
-        $response = ob_get_contents();
-        ob_end_clean();
+//        $response = ob_get_contents();
+//        ob_end_clean();
 
         $this->assertStringContainsString('Key Id and Key Secret are required', $response);
     }
