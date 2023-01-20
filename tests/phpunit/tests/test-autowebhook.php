@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../mockfactory/Request.php';
+require_once __DIR__ . '/../../../woo-razorpay.php';
 
 use Razorpay\MockApi\MockApi;
 

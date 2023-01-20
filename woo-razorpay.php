@@ -1643,7 +1643,6 @@ EOT;
 
         protected function getErrorMessage($orderId)
         {
-            update_option('webhook_enable_flag', time());
             // We don't have a proper order id
             rzpLogInfo("getErrorMessage orderId: $orderId");
 
