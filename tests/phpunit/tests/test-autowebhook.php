@@ -18,6 +18,7 @@ class Test_AutoWebhook extends WP_UnitTestCase
 
     public function testEmptyKeyAndSecretValidation()
     {
+        ob_start();
         $this->instance->shouldReceive('getSetting')->andReturnUsing(function ($key) {
             if ($key == 'key_id')
             {
@@ -29,7 +30,6 @@ class Test_AutoWebhook extends WP_UnitTestCase
             }
         });
 
-        ob_start();
         $response = $this->instance->autoEnableWebhook();
         $response = ob_get_contents();
         ob_end_clean();
