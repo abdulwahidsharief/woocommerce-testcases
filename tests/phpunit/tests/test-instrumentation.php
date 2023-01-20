@@ -4,8 +4,6 @@ require_once __DIR__ . '/../mockfactory/Request.php';
 require_once __DIR__ . '/../../../includes/plugin-instrumentation.php';
 
 use Razorpay\MockApi\MockApi;
-use Razorpay\Api\Api;
-
 
 class Test_Instrumentation extends WP_UnitTestCase
 {
