@@ -39,11 +39,11 @@ class Test_AutoWebhook extends WP_UnitTestCase
         $this->instance->shouldReceive('getSetting')->andReturnUsing(function ($key) {
             if ($key == 'key_id')
             {
-                return 'key_id';
+                return 'invalid_key_id';
             }
             else
             {
-                return 'key_secret';
+                return 'invalid_key_secret';
             }
         });
 
