@@ -181,43 +181,43 @@ function woocommerce_razorpay_init()
                 {
                     try {
 
-                        $api = $this->getRazorpayApiInstance();
-                        $merchantPreferences = $api->request->request('GET', 'merchant/1cc_preferences');
+                      $api = $this->getRazorpayApiInstance();
+                      $merchantPreferences = $api->request->request('GET', 'merchant/1cc_preferences');
 
-                        if (!empty($merchantPreferences['features']['one_click_checkout'])) {
-                            $is1ccAvailable = true;
-                        }
+                      if (!empty($merchantPreferences['features']['one_click_checkout'])) {
+                        $is1ccAvailable = true;
+                      }
 
-                        if (!empty($merchantPreferences['features']['one_cc_store_account'])) {
-                            $isAccCreationAvailable = true;
-                        }
+                      if (!empty($merchantPreferences['features']['one_cc_store_account'])) {
+                        $isAccCreationAvailable = true;
+                      }
 
                     } catch (\Exception $e) {
-                        rzpLogError($e->getMessage());
+                      rzpLogError($e->getMessage());
                     }
 
                 }
             }
 
             if ($is1ccAvailable) {
-                $this->visibleSettings = array_merge($this->visibleSettings, array(
-                    'enable_1cc',
-                    'enable_1cc_mandatory_login',
-                    'enable_1cc_test_mode',
-                    'enable_1cc_pdp_checkout',
-                    'enable_1cc_mini_cart_checkout',
-                    'enable_1cc_ga_analytics',
-                    'enable_1cc_fb_analytics',
-                    '1cc_min_cart_amount',
-                    '1cc_min_COD_slab_amount',
-                    '1cc_max_COD_slab_amount',
-                ));
+              $this->visibleSettings = array_merge($this->visibleSettings, array(
+                'enable_1cc',
+                'enable_1cc_mandatory_login',
+                'enable_1cc_test_mode',
+                'enable_1cc_pdp_checkout',
+                'enable_1cc_mini_cart_checkout',
+                'enable_1cc_ga_analytics',
+                'enable_1cc_fb_analytics',
+                '1cc_min_cart_amount',
+                '1cc_min_COD_slab_amount',
+                '1cc_max_COD_slab_amount',
+              ));
 
-                if ($isAccCreationAvailable) {
-                    $this->visibleSettings = array_merge($this->visibleSettings, array(
-                        '1cc_account_creation',
-                    ));
-                }
+              if ($isAccCreationAvailable) {
+                $this->visibleSettings = array_merge($this->visibleSettings, array(
+                    '1cc_account_creation',
+                ));
+              }
 
             }
 
@@ -390,7 +390,7 @@ function woocommerce_razorpay_init()
             $enabled     = true;
             $secret = empty($this->getSetting('webhook_secret')) ? $this->generateSecret() : $this->getSetting('webhook_secret');
 
-            update_option('webhook_secret', $secret);
+            $this->update_option('webhook_secret', $secret);
             $getWebhookFlag =  get_option('webhook_enable_flag');
             $time = time();
 
@@ -661,9 +661,9 @@ function woocommerce_razorpay_init()
             if($enable_1cc == 'no')
             {
                 ?>
-                <div class="notice error is-dismissible" >
-                    <p><b><?php _e( 'We are sorry to see you opt out of Magic Checkout experience. Please help us understand what went wrong by filling up this form.'); ?></b></p>
-                </div>
+                    <div class="notice error is-dismissible" >
+                        <p><b><?php _e( 'We are sorry to see you opt out of Magic Checkout experience. Please help us understand what went wrong by filling up this form.'); ?></b></p>
+                    </div>
                 <?php
                 error_log('1cc is disabled.');
                 return;
@@ -671,9 +671,9 @@ function woocommerce_razorpay_init()
             elseif ($enable_1cc == 'yes')
             {
                 ?>
-                <div class="notice notice-success is-dismissible" >
-                    <p><b><?php _e( 'You are Live with Magic Checkout.'); ?></b></p>
-                </div>
+                    <div class="notice notice-success is-dismissible" >
+                        <p><b><?php _e( 'You are Live with Magic Checkout.'); ?></b></p>
+                    </div>
                 <?php
                 return;
             }
@@ -1020,15 +1020,15 @@ function woocommerce_razorpay_init()
 
             if (empty($getWebhookFlag) == false)
             {
-                if ($getWebhookFlag + 43200 < time())
-                {
-                    $this->autoEnableWebhook();
-                }
+                    if ($getWebhookFlag + 43200 < time())
+                    {
+                        $this->autoEnableWebhook();
+                    }
             }
             else
             {
-                update_option('webhook_enable_flag', $time);
-                $this->autoEnableWebhook();
+                    update_option('webhook_enable_flag', $time);
+                    $this->autoEnableWebhook();
             }
 
             $razorpayOrderId = $razorpayOrder['id'];
@@ -1077,7 +1077,7 @@ function woocommerce_razorpay_init()
             if($is1ccCheckout == 'no'){
                 $razorpayOrderArgs['amount'] = $orderCreationData['amount'];
             }else{
-                $razorpayOrderArgs['line_items_total'] = $orderCreationData['amount'];
+               $razorpayOrderArgs['line_items_total'] = $orderCreationData['amount'];
             }
 
             $orderKeys = array_keys($razorpayOrderArgs);
@@ -1145,22 +1145,22 @@ function woocommerce_razorpay_init()
             // Get and Loop Over Order Items
             foreach ( $order->get_items() as $item_id => $item )
             {
-                $product = $item->get_product();
-                $productDetails = $product->get_data();
+               $product = $item->get_product();
+               $productDetails = $product->get_data();
 
-                $data['line_items'][$i]['type'] = "e-commerce";
-                $data['line_items'][$i]['sku'] = $product->get_sku();
-                $data['line_items'][$i]['variant_id'] = $item->get_variation_id();
-                $data['line_items'][$i]['price'] = (empty($productDetails['price'])=== false) ? round(wc_get_price_excluding_tax($product)*100) + round($item->get_subtotal_tax()*100 / $item->get_quantity()) : 0;
-                $data['line_items'][$i]['offer_price'] = (empty($productDetails['sale_price'])=== false) ? (int) $productDetails['sale_price']*100 : $productDetails['price']*100;
-                $data['line_items'][$i]['quantity'] = (int)$item->get_quantity();
-                $data['line_items'][$i]['name'] = mb_substr($item->get_name(), 0, 125, "UTF-8");
-                $data['line_items'][$i]['description'] = mb_substr($item->get_name(), 0, 250,"UTF-8");
-                $productImage = $product->get_image_id()?? null;
-                $data['line_items'][$i]['image_url'] = $productImage? wp_get_attachment_url( $productImage ) : null;
-                $data['line_items'][$i]['product_url'] = $product->get_permalink();
+               $data['line_items'][$i]['type'] = "e-commerce";
+               $data['line_items'][$i]['sku'] = $product->get_sku();
+               $data['line_items'][$i]['variant_id'] = $item->get_variation_id();
+               $data['line_items'][$i]['price'] = (empty($productDetails['price'])=== false) ? round(wc_get_price_excluding_tax($product)*100) + round($item->get_subtotal_tax()*100 / $item->get_quantity()) : 0;
+               $data['line_items'][$i]['offer_price'] = (empty($productDetails['sale_price'])=== false) ? (int) $productDetails['sale_price']*100 : $productDetails['price']*100;
+               $data['line_items'][$i]['quantity'] = (int)$item->get_quantity();
+               $data['line_items'][$i]['name'] = mb_substr($item->get_name(), 0, 125, "UTF-8");
+               $data['line_items'][$i]['description'] = mb_substr($item->get_name(), 0, 250,"UTF-8");
+               $productImage = $product->get_image_id()?? null;
+               $data['line_items'][$i]['image_url'] = $productImage? wp_get_attachment_url( $productImage ) : null;
+               $data['line_items'][$i]['product_url'] = $product->get_permalink();
 
-                $i++;
+               $i++;
             }
 
             return $data;
@@ -1436,9 +1436,9 @@ EOT;
 
                 if ($cartHash != false)
                 {
-                    // Need to delete the cart hash stored in transient.
-                    // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
-                    $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
+                  // Need to delete the cart hash stored in transient.
+                  // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
+                  $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
                 }
 
                 $this->redirectUser($order);
@@ -1461,9 +1461,9 @@ EOT;
 
                     if ($cartHash != false)
                     {
-                        // Need to delete the cart hash stored in transient.
-                        // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
-                        $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
+                      // Need to delete the cart hash stored in transient.
+                      // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
+                      $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
                     }
                 }
                 catch (Errors\SignatureVerificationError $e)
@@ -1857,7 +1857,7 @@ EOT;
                         }
                         else
                         {
-                            $item->set_method_title($shippingData??[0]['name']);
+                             $item->set_method_title($shippingData??[0]['name']);
                         }
 
                         // set an non existing Shipping method rate ID will mark the order as completed instead of processing status
@@ -2064,12 +2064,12 @@ EOT;
         }
 
         /**
-         * Retrieve a Shipping Zone by it's ID.
-         *
-         * @param int $zone_id Shipping Zone ID.
-         * @return WC_Shipping_Zone|WP_Error
-         */
-        // TODO: can't we directly return the statement?
+          * Retrieve a Shipping Zone by it's ID.
+          *
+          * @param int $zone_id Shipping Zone ID.
+          * @return WC_Shipping_Zone|WP_Error
+          */
+          // TODO: can't we directly return the statement?
         protected function getShippingZone($zoneId)
         {
             $zone = WC_Shipping_Zones::get_zone_by('zone_id', $zoneId);
@@ -2135,7 +2135,7 @@ EOT;
             {
                 if(isset($results[0]->abandoned_cart_time) && $compareTime > $results[0]->abandoned_cart_time)
                 {
-                    wcal_common::wcal_set_cart_session('abandoned_cart_id_lite', $results[0]->id);
+                     wcal_common::wcal_set_cart_session('abandoned_cart_id_lite', $results[0]->id);
                 }
             }
 
@@ -2143,8 +2143,8 @@ EOT;
 
             add_post_meta($wcOrderId, 'abandoned_id', $abandonedOrderId);
             $wpdb->query( // phpcS:ignore
-                $wpdb->prepare(
-                    'UPDATE `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` SET recovered_cart = %s, cart_ignored = %s WHERE id = %s',
+            $wpdb->prepare(
+                'UPDATE `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` SET recovered_cart = %s, cart_ignored = %s WHERE id = %s',
                     $wcOrderId,
                     '1',
                     $abandonedOrderId
@@ -2237,7 +2237,7 @@ EOT;
             $totalComm = $commission[0]->total_commission+$shippingFee;
             $wpdb->query(
                 $wpdb->prepare(
-                    'UPDATE `' . $wpdb->prefix . 'wcfm_marketplace_orders` SET shipping = %d, total_commission = %d WHERE vendor_id = %d AND order_id = %d',
+                 'UPDATE `' . $wpdb->prefix . 'wcfm_marketplace_orders` SET shipping = %d, total_commission = %d WHERE vendor_id = %d AND order_id = %d',
                     $shippingFee,
                     $totalComm,
                     $vendorId,
@@ -2357,11 +2357,11 @@ function enqueueScriptsFor1cc()
 
     wp_register_script('btn_1cc_checkout', plugin_dir_url(__FILE__)  . 'btn-1cc-checkout.js', null, null);
     wp_localize_script('btn_1cc_checkout', 'rzp1ccCheckoutData', array(
-        'nonce' => wp_create_nonce("wp_rest"),
-        'siteurl' => $siteurl,
-        'blogname' => get_bloginfo('name'),
-        'cookies' => $_COOKIE,
-        'requestData' => $_REQUEST,
+      'nonce' => wp_create_nonce("wp_rest"),
+      'siteurl' => $siteurl,
+      'blogname' => get_bloginfo('name'),
+      'cookies' => $_COOKIE,
+      'requestData' => $_REQUEST,
     ) );
     wp_enqueue_script('btn_1cc_checkout');
 }
@@ -2370,30 +2370,30 @@ function enqueueScriptsFor1cc()
 add_action( 'woocommerce_proceed_to_checkout', 'addCheckoutButton');
 
 if(isRazorpayPluginEnabled() && is1ccEnabled()) {
-    add_action('wp_head', 'addRzpSpinner');
+   add_action('wp_head', 'addRzpSpinner');
 }
 
 function addCheckoutButton()
 {
-    add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
+  add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
-    if (isRazorpayPluginEnabled() && is1ccEnabled() )
-    {
-        if (isTestModeEnabled()) {
-            $current_user = wp_get_current_user();
-            if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
-                $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
-                load_template( $tempTest, false, array() );
-            }
-        } else {
-            $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
-            load_template( $tempTest, false, array() );
-        }
+  if (isRazorpayPluginEnabled() && is1ccEnabled() )
+  {
+    if (isTestModeEnabled()) {
+      $current_user = wp_get_current_user();
+      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+        $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
+        load_template( $tempTest, false, array() );
+      }
+    } else {
+      $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
+      load_template( $tempTest, false, array() );
     }
-    else
-    {
-        return;
-    }
+  }
+  else
+  {
+    return;
+  }
 }
 
 //To add 1CC Mini cart checkout button
@@ -2417,14 +2417,14 @@ function addMiniCheckoutButton()
     add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
     if (isTestModeEnabled()) {
-        $current_user = wp_get_current_user();
-        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
-            $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
-            load_template( $tempTest, false, array() );
-        }
-    } else {
+      $current_user = wp_get_current_user();
+      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
         $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
         load_template( $tempTest, false, array() );
+      }
+    } else {
+      $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
+      load_template( $tempTest, false, array() );
     }
 
 }
@@ -2438,14 +2438,14 @@ if(isRazorpayPluginEnabled() && is1ccEnabled() && isPdpCheckoutEnabled())
 function addRzpSpinner()
 {
     if (isTestModeEnabled()) {
-        $current_user = wp_get_current_user();
-        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
-            $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
-            load_template( $tempTest, false, array() );
-        }
-    } else {
+      $current_user = wp_get_current_user();
+      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
         $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
         load_template( $tempTest, false, array() );
+      }
+    } else {
+      $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
+      load_template( $tempTest, false, array() );
     }
 }
 
@@ -2454,14 +2454,14 @@ function addPdpCheckoutButton()
     add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
     if (isTestModeEnabled()) {
-        $current_user = wp_get_current_user();
-        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
-            $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
-            load_template( $tempTest, false, array() );
-        }
-    } else {
+      $current_user = wp_get_current_user();
+      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
         $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
         load_template( $tempTest, false, array() );
+      }
+    } else {
+      $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
+      load_template( $tempTest, false, array() );
     }
 }
 

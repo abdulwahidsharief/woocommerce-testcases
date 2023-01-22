@@ -213,7 +213,6 @@ function getApplyCouponErrorCodes($failureMessage)
 
 function validateApplyCouponApi($param)
 {
-    $failureReason = null;
     if (empty(sanitize_text_field($param["code"])) === true) {
         $failureReason = "Field code is required.";
     } elseif (empty(sanitize_text_field($param["order_id"])) === true) {

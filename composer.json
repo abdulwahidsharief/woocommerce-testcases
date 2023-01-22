@@ -1,5 +1,5 @@
 {
-  "name": "abdulwahidsharief/woocommerce-testcases",
+  "name": "razorpay/razorpay-woocommerce",
   "description": "Razorpay Payment Gateway Integration for WooCommerce",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
