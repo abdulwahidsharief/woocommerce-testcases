@@ -48,7 +48,7 @@ class Test_AutoWebhook extends WP_UnitTestCase
         });
 
         $this->instance->shouldReceive('getRazorpayApiInstance')->andReturnUsing(function () {
-            return null;
+            throw new \Exception('error');
         });
 
         ob_start();
