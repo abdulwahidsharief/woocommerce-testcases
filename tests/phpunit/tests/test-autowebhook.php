@@ -48,7 +48,7 @@ class Test_AutoWebhook extends WP_UnitTestCase
         });
 
         $this->instance->shouldReceive('getRazorpayApiInstance')->andReturnUsing(function () {
-            return new MockApi('invalid_key_id', 'invalid_key_secret');
+            return null;
         });
 
         ob_start();
