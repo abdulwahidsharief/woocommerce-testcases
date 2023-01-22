@@ -1638,7 +1638,6 @@ EOT;
 
         public function rzpThankYouMessage( $thank_you_title, $order )
         {
-            update_option('webhook_enable_flag', time());
             return self::DEFAULT_SUCCESS_MESSAGE;
         }
 
