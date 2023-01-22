@@ -181,43 +181,43 @@ function woocommerce_razorpay_init()
                 {
                     try {
 
-                      $api = $this->getRazorpayApiInstance();
-                      $merchantPreferences = $api->request->request('GET', 'merchant/1cc_preferences');
+                        $api = $this->getRazorpayApiInstance();
+                        $merchantPreferences = $api->request->request('GET', 'merchant/1cc_preferences');
 
-                      if (!empty($merchantPreferences['features']['one_click_checkout'])) {
-                        $is1ccAvailable = true;
-                      }
+                        if (!empty($merchantPreferences['features']['one_click_checkout'])) {
+                            $is1ccAvailable = true;
+                        }
 
-                      if (!empty($merchantPreferences['features']['one_cc_store_account'])) {
-                        $isAccCreationAvailable = true;
-                      }
+                        if (!empty($merchantPreferences['features']['one_cc_store_account'])) {
+                            $isAccCreationAvailable = true;
+                        }
 
                     } catch (\Exception $e) {
-                      rzpLogError($e->getMessage());
+                        rzpLogError($e->getMessage());
                     }
 
                 }
             }
 
             if ($is1ccAvailable) {
-              $this->visibleSettings = array_merge($this->visibleSettings, array(
-                'enable_1cc',
-                'enable_1cc_mandatory_login',
-                'enable_1cc_test_mode',
-                'enable_1cc_pdp_checkout',
-                'enable_1cc_mini_cart_checkout',
-                'enable_1cc_ga_analytics',
-                'enable_1cc_fb_analytics',
-                '1cc_min_cart_amount',
-                '1cc_min_COD_slab_amount',
-                '1cc_max_COD_slab_amount',
-              ));
-
-              if ($isAccCreationAvailable) {
                 $this->visibleSettings = array_merge($this->visibleSettings, array(
-                    '1cc_account_creation',
+                    'enable_1cc',
+                    'enable_1cc_mandatory_login',
+                    'enable_1cc_test_mode',
+                    'enable_1cc_pdp_checkout',
+                    'enable_1cc_mini_cart_checkout',
+                    'enable_1cc_ga_analytics',
+                    'enable_1cc_fb_analytics',
+                    '1cc_min_cart_amount',
+                    '1cc_min_COD_slab_amount',
+                    '1cc_max_COD_slab_amount',
                 ));
-              }
+
+                if ($isAccCreationAvailable) {
+                    $this->visibleSettings = array_merge($this->visibleSettings, array(
+                        '1cc_account_creation',
+                    ));
+                }
 
             }
 
@@ -524,7 +524,7 @@ function woocommerce_razorpay_init()
             if ($webhookExist)
             {
                 rzpLogInfo('Updating razorpay webhook');
-                return $this->webhookAPI('PUT', "webhooks/".$webhookId, $data);
+                return $this->webhookAPI('PUT', "webhooks/" . $webhookId, $data);
             }
             else
             {
@@ -661,9 +661,9 @@ function woocommerce_razorpay_init()
             if($enable_1cc == 'no')
             {
                 ?>
-                    <div class="notice error is-dismissible" >
-                        <p><b><?php _e( 'We are sorry to see you opt out of Magic Checkout experience. Please help us understand what went wrong by filling up this form.'); ?></b></p>
-                    </div>
+                <div class="notice error is-dismissible" >
+                    <p><b><?php _e( 'We are sorry to see you opt out of Magic Checkout experience. Please help us understand what went wrong by filling up this form.'); ?></b></p>
+                </div>
                 <?php
                 error_log('1cc is disabled.');
                 return;
@@ -671,9 +671,9 @@ function woocommerce_razorpay_init()
             elseif ($enable_1cc == 'yes')
             {
                 ?>
-                    <div class="notice notice-success is-dismissible" >
-                        <p><b><?php _e( 'You are Live with Magic Checkout.'); ?></b></p>
-                    </div>
+                <div class="notice notice-success is-dismissible" >
+                    <p><b><?php _e( 'You are Live with Magic Checkout.'); ?></b></p>
+                </div>
                 <?php
                 return;
             }
@@ -1020,15 +1020,15 @@ function woocommerce_razorpay_init()
 
             if (empty($getWebhookFlag) == false)
             {
-                    if ($getWebhookFlag + 43200 < time())
-                    {
-                        $this->autoEnableWebhook();
-                    }
+                if ($getWebhookFlag + 43200 < time())
+                {
+                    $this->autoEnableWebhook();
+                }
             }
             else
             {
-                    update_option('webhook_enable_flag', $time);
-                    $this->autoEnableWebhook();
+                update_option('webhook_enable_flag', $time);
+                $this->autoEnableWebhook();
             }
 
             $razorpayOrderId = $razorpayOrder['id'];
@@ -1077,7 +1077,7 @@ function woocommerce_razorpay_init()
             if($is1ccCheckout == 'no'){
                 $razorpayOrderArgs['amount'] = $orderCreationData['amount'];
             }else{
-               $razorpayOrderArgs['line_items_total'] = $orderCreationData['amount'];
+                $razorpayOrderArgs['line_items_total'] = $orderCreationData['amount'];
             }
 
             $orderKeys = array_keys($razorpayOrderArgs);
@@ -1143,44 +1143,24 @@ function woocommerce_razorpay_init()
 
             $i = 0;
             // Get and Loop Over Order Items
-            $type = "e-commerce";
             foreach ( $order->get_items() as $item_id => $item )
             {
-               $product = $item->get_product();
+                $product = $item->get_product();
+                $productDetails = $product->get_data();
 
-               // check product type for gift card plugin
-               if(is_plugin_active('pw-woocommerce-gift-cards/pw-gift-cards.php') || is_plugin_active('yith-woocommerce-gift-cards/init.php')){
-                    $productDetails = $product->get_data();
-                   if($product->is_type('variation')){
-                        $parentProductId = $product->get_parent_id();
-                        $parentProduct = wc_get_product($parentProductId);
-                     
-                        if($parentProduct->get_type() == 'pw-gift-card' || $parentProduct->get_type() == 'gift-card'){
-                            $type = 'gift_card';
-                        }
+                $data['line_items'][$i]['type'] = "e-commerce";
+                $data['line_items'][$i]['sku'] = $product->get_sku();
+                $data['line_items'][$i]['variant_id'] = $item->get_variation_id();
+                $data['line_items'][$i]['price'] = (empty($productDetails['price'])=== false) ? round(wc_get_price_excluding_tax($product)*100) + round($item->get_subtotal_tax()*100 / $item->get_quantity()) : 0;
+                $data['line_items'][$i]['offer_price'] = (empty($productDetails['sale_price'])=== false) ? (int) $productDetails['sale_price']*100 : $productDetails['price']*100;
+                $data['line_items'][$i]['quantity'] = (int)$item->get_quantity();
+                $data['line_items'][$i]['name'] = mb_substr($item->get_name(), 0, 125, "UTF-8");
+                $data['line_items'][$i]['description'] = mb_substr($item->get_name(), 0, 250,"UTF-8");
+                $productImage = $product->get_image_id()?? null;
+                $data['line_items'][$i]['image_url'] = $productImage? wp_get_attachment_url( $productImage ) : null;
+                $data['line_items'][$i]['product_url'] = $product->get_permalink();
 
-                   }else{
-
-                       if($product->get_type() == 'pw-gift-card' || $product->get_type() == 'gift-card'){
-                              $type = 'gift_card'; 
-                       }
-                   }
-
-               }
-
-               $data['line_items'][$i]['type'] =  $type;
-               $data['line_items'][$i]['sku'] = $product->get_sku();
-               $data['line_items'][$i]['variant_id'] = $item->get_variation_id();
-               $data['line_items'][$i]['price'] = (empty($productDetails['price'])=== false) ? round(wc_get_price_excluding_tax($product)*100) + round($item->get_subtotal_tax()*100 / $item->get_quantity()) : 0;
-               $data['line_items'][$i]['offer_price'] = (empty($productDetails['sale_price'])=== false) ? (int) $productDetails['sale_price']*100 : $productDetails['price']*100;
-               $data['line_items'][$i]['quantity'] = (int)$item->get_quantity();
-               $data['line_items'][$i]['name'] = mb_substr($item->get_name(), 0, 125, "UTF-8");
-               $data['line_items'][$i]['description'] = mb_substr($item->get_name(), 0, 250,"UTF-8");
-               $productImage = $product->get_image_id()?? null;
-               $data['line_items'][$i]['image_url'] = $productImage? wp_get_attachment_url( $productImage ) : null;
-               $data['line_items'][$i]['product_url'] = $product->get_permalink();
-
-               $i++;
+                $i++;
             }
 
             return $data;
@@ -1346,60 +1326,6 @@ EOT;
             }
         }
 
-        // process refund for gift card
-        function processGiftCardRefund($orderId, $amount = null, $reason = '', $razorpayPaymentId)
-        {
-            $order = wc_get_order($orderId);
-
-            if (! $order or ! $razorpayPaymentId)
-            {
-                return new WP_Error('error', __('Refund failed: No transaction ID', 'woocommerce'));
-            }
-
-            $client = $this->getRazorpayApiInstance();
-
-            $data = array(
-                'amount'    =>  (int) round($amount),
-                'notes'     =>  array(
-                    'reason'                =>  $reason,
-                    'order_id'              =>  $orderId,
-                    'refund_from_website'   =>  true,
-                    'source'                =>  'woocommerce',
-                )
-            );
-
-            try
-            {
-                $refund = $client->payment->fetch( $razorpayPaymentId )->refund( $data );
-
-                wc_create_refund(array(
-                    'amount'         => $amount,
-                    'reason'         => $reason,
-                    'order_id'       => $orderId,
-                    'refund_id'      => $refund->id,
-                    'line_items'     => array(),
-                    'refund_payment' => false,
-                ));
-
-                $order->add_order_note( __( 'Refund Id: ' . $refund->id, 'woocommerce' ) );
-                /**
-                 * @var $refund ->id -- Provides the RazorPay Refund ID
-                 * @var $orderId -> Refunded Order ID
-                 * @var $refund -> WooCommerce Refund Instance.
-                 */
-                //do_action( 'woo_razorpay_refund_success', $refund->id, $orderId, $refund );
-                $this->add_notice("Payment refunded", "error");
-
-            }
-            catch(Exception $e)
-            {
-                rzpLogInfo('failure message for refund:' . $e->getMessage());
-            }
-
-            wp_redirect(wc_get_cart_url());
-            exit;
-        }
-
         /**
          * Process the payment and return the result
          **/
@@ -1510,9 +1436,9 @@ EOT;
 
                 if ($cartHash != false)
                 {
-                  // Need to delete the cart hash stored in transient.
-                  // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
-                  $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
+                    // Need to delete the cart hash stored in transient.
+                    // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
+                    $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
                 }
 
                 $this->redirectUser($order);
@@ -1535,9 +1461,9 @@ EOT;
 
                     if ($cartHash != false)
                     {
-                      // Need to delete the cart hash stored in transient.
-                      // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
-                      $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
+                        // Need to delete the cart hash stored in transient.
+                        // Becuase the cart hash will be depending on the cart items so this will cause the issue when order api triggers.
+                        $woocommerce->session->__unset(RZP_1CC_CART_HASH.$cartHash);
                     }
                 }
                 catch (Errors\SignatureVerificationError $e)
@@ -1806,7 +1732,7 @@ EOT;
             }
 
             $razorpayData = $api->order->fetch($razorpayOrderId);
-            
+
             $this->UpdateOrderAddress($razorpayData, $order);
 
             $gstNo             = $razorpayData['notes']['gstin']??'';
@@ -1819,8 +1745,37 @@ EOT;
                 $order->add_order_note( "Order Instructions: ". $orderInstructions);
             }
 
-            // update gift card and coupons
-            $this->updateGiftAndCoupon($razorpayData, $order, $wcOrderId, $razorpayPaymentId);
+
+            if (empty($razorpayData['promotions'][0]) === false)
+            {
+                $couponKey = $razorpayData['promotions'][0]['code'];
+            }
+
+            //Apply coupon to woo-order
+            if (empty($couponKey) === false)
+            {
+                // Remove the same coupon, if already being added to order.
+                $order->remove_coupon($couponKey);
+
+                //TODO: Convert all razorpay amount in paise to rupees
+                $discount_total = $razorpayData['promotions'][0]['value']/100;
+
+                //TODO: Verify source code implementation
+                // Loop through products and apply the coupon discount
+                foreach($order->get_items() as $order_item)
+                {
+                    $total = $order_item->get_total();
+                    $order_item->set_subtotal($total);
+                    $order_item->set_total($total - $discount_total);
+                    $order_item->save();
+                }
+                // TODO: Test if individual use coupon fails by hardcoding here
+                $isApplied = $order->apply_coupon($couponKey);
+                $order->save();
+
+                rzpLogInfo("Coupon details updated for orderId: $wcOrderId");
+
+            }
 
             //Apply shipping charges to woo-order
             if(isset($razorpayData['shipping_fee']) === true)
@@ -1902,7 +1857,7 @@ EOT;
                         }
                         else
                         {
-                             $item->set_method_title($shippingData??[0]['name']);
+                            $item->set_method_title($shippingData??[0]['name']);
                         }
 
                         // set an non existing Shipping method rate ID will mark the order as completed instead of processing status
@@ -1968,150 +1923,6 @@ EOT;
 
             $note = __('Order placed through Razorpay Magic Checkout');
             $order->add_order_note( $note );
-        }
-
-        public function updateGiftAndCoupon($razorpayData, $order, $orderId, $razorpayPaymentId)
-        {
-            global $woocommerce;
-            global $wpdb;
-
-            foreach($razorpayData['promotions'] as $promotion)
-            {
-                if($promotion['type'] == 'gift_card'){
-
-                    $usedAmt = $promotion['value']/100;
-                    $giftCode = $promotion['code'];
-                    if(is_plugin_active('yith-woocommerce-gift-cards/init.php')){
-
-                        $yithCard = new YITH_YWGC_Gift_Card( $args = array('gift_card_number'=> $giftCode));
-
-                        //Get GC status
-                        $post  = get_post($yithCard->ID);
-                        $status = $post->post_status;
-
-                        $giftCardBalance = $yithCard->get_balance();
-
-                        if($giftCardBalance == null && $giftCardBalance >= 0 && $usedAmt > $giftCardBalance && 'trash' == $status && !$yithCard->exists()){
-                            // initiate refund in case gift card faliure
-                            $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                        }else{
-                            //Deduct amount of gift card
-                            $yithCard->update_balance( $yithCard->get_balance() - $usedAmt );
-                            $yithCard->register_order($orderId);
-
-                            $code = "Gift Card ($giftCode)";
-
-                            $wpdb->query( // phpcs:ignore
-                                $wpdb->prepare(
-                                    'INSERT INTO `' . $wpdb->prefix . 'woocommerce_order_items`( order_item_name, order_item_type, order_id ) VALUES ( %s, %s, %s)',
-                                    $code,
-                                    'fee',
-                                    $orderId
-                                )
-                            );
-
-                            $itemId = $wpdb->insert_id;
-                            wc_add_order_item_meta( $itemId, '_line_total', -$usedAmt );
-
-                            $order->add_order_note( sprintf( esc_html__( 'Order paid with gift cards for a total amount of %s.', 'yith-woocommerce-gift-cards' ), wc_price( $usedAmt ) ) );
-                            
-                            $orderTotal = $order->get_total() - $usedAmt;
-                            $order->set_total($orderTotal);
-                            $order->save();
-                        }
-
-                    }
-                    else if(is_plugin_active('pw-woocommerce-gift-cards/pw-gift-cards.php'))
-                    {
-                        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM `{$wpdb->pimwick_gift_card}` WHERE `number` = %s", $promotion['code'] ) );
-                        if($result != null){
-                            $balance = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->pimwick_gift_card_activity} WHERE pimwick_gift_card_id = %d", $result->pimwick_gift_card_id ) );
-                            
-                            if($balance == null && $balance >= 0 && $usedAmt > $balance ){
-                                // initiate refund in case gift card faliure
-                                $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                            }else{
-                                //Deduct amount of gift card
-                               $this->debitGiftCards($orderId, $order, "order_id: $orderId checkout_update_order_meta", $usedAmt, $giftcard['code']);
-                            }
-
-                        }else{
-                            $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                        }
-
-                    }else{
-                       $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                    }
-                    
-                }else{
-
-                    $couponKey = $promotion['code'];
-
-                    if (empty($couponKey) === false)
-                    {
-                        // Remove the same coupon, if already being added to order.
-                        $order->remove_coupon($couponKey);
-
-                        //TODO: Convert all razorpay amount in paise to rupees
-                        $discount_total = $giftcard['value']/100;
-
-                        //TODO: Verify source code implementation
-                        // Loop through products and apply the coupon discount
-                        foreach($order->get_items() as $order_item)
-                        {
-                            $total = $order_item->get_total();
-                            $order_item->set_subtotal($total);
-                            $order_item->set_total($total - $discount_total);
-                            $order_item->save();
-                        }
-                        // TODO: Test if individual use coupon fails by hardcoding here
-                        $isApplied = $order->apply_coupon($couponKey);
-                        $order->save();
-
-                        rzpLogInfo("Coupon details updated for orderId: $orderId");
-                    }
-                }
-                
-            }
-        }
-
-        protected function debitGiftCards( $orderId, $order, $note, $usedAmt, $giftCardNo) {
-
-            global $woocommerce;
-            global $wpdb;
-           
-            if ( ! is_a( $order, 'WC_Order' ) ) {
-                return;
-            }
-
-            // insert GC in orderitems
-            $wpdb->query( // phpcs:ignore
-                $wpdb->prepare(
-                    'INSERT INTO `' . $wpdb->prefix . 'woocommerce_order_items`( order_item_name, order_item_type, order_id ) VALUES ( %s, %s, %s)',
-                    $code,
-                    'pw_gift_card',
-                    $orderId
-                )
-            );
-
-            $itemId = $wpdb->insert_id;
-            wc_add_order_item_meta( $itemId, 'card_number', $giftCardNo );
-            wc_add_order_item_meta( $itemId, 'amount', $usedAmt );
-
-            foreach( $order->get_items( 'pw_gift_card' ) as $order_item_id => $line ) {
-                $gift_card = new PW_Gift_Card( $giftCardNo );
-                
-                if ( $gift_card->get_id() ) {
-                    if ( !$line->meta_exists( '_pw_gift_card_debited' ) ) {
-                        if ( $line->get_amount() != 0 ) {
-                            $gift_card->debit( ( $line->get_amount() * -1 ), "$note, order_item_id: $order_item_id" );
-                        }
-
-                        $line->add_meta_data( '_pw_gift_card_debited', true );
-                        $line->save();
-                    }
-                }
-            }
         }
 
         //To update customer address info to wc order.
@@ -2253,12 +2064,12 @@ EOT;
         }
 
         /**
-          * Retrieve a Shipping Zone by it's ID.
-          *
-          * @param int $zone_id Shipping Zone ID.
-          * @return WC_Shipping_Zone|WP_Error
-          */
-          // TODO: can't we directly return the statement?
+         * Retrieve a Shipping Zone by it's ID.
+         *
+         * @param int $zone_id Shipping Zone ID.
+         * @return WC_Shipping_Zone|WP_Error
+         */
+        // TODO: can't we directly return the statement?
         protected function getShippingZone($zoneId)
         {
             $zone = WC_Shipping_Zones::get_zone_by('zone_id', $zoneId);
@@ -2324,7 +2135,7 @@ EOT;
             {
                 if(isset($results[0]->abandoned_cart_time) && $compareTime > $results[0]->abandoned_cart_time)
                 {
-                     wcal_common::wcal_set_cart_session('abandoned_cart_id_lite', $results[0]->id);
+                    wcal_common::wcal_set_cart_session('abandoned_cart_id_lite', $results[0]->id);
                 }
             }
 
@@ -2332,8 +2143,8 @@ EOT;
 
             add_post_meta($wcOrderId, 'abandoned_id', $abandonedOrderId);
             $wpdb->query( // phpcS:ignore
-            $wpdb->prepare(
-                'UPDATE `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` SET recovered_cart = %s, cart_ignored = %s WHERE id = %s',
+                $wpdb->prepare(
+                    'UPDATE `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` SET recovered_cart = %s, cart_ignored = %s WHERE id = %s',
                     $wcOrderId,
                     '1',
                     $abandonedOrderId
@@ -2426,7 +2237,7 @@ EOT;
             $totalComm = $commission[0]->total_commission+$shippingFee;
             $wpdb->query(
                 $wpdb->prepare(
-                 'UPDATE `' . $wpdb->prefix . 'wcfm_marketplace_orders` SET shipping = %d, total_commission = %d WHERE vendor_id = %d AND order_id = %d',
+                    'UPDATE `' . $wpdb->prefix . 'wcfm_marketplace_orders` SET shipping = %d, total_commission = %d WHERE vendor_id = %d AND order_id = %d',
                     $shippingFee,
                     $totalComm,
                     $vendorId,
@@ -2546,11 +2357,11 @@ function enqueueScriptsFor1cc()
 
     wp_register_script('btn_1cc_checkout', plugin_dir_url(__FILE__)  . 'btn-1cc-checkout.js', null, null);
     wp_localize_script('btn_1cc_checkout', 'rzp1ccCheckoutData', array(
-      'nonce' => wp_create_nonce("wp_rest"),
-      'siteurl' => $siteurl,
-      'blogname' => get_bloginfo('name'),
-      'cookies' => $_COOKIE,
-      'requestData' => $_REQUEST,
+        'nonce' => wp_create_nonce("wp_rest"),
+        'siteurl' => $siteurl,
+        'blogname' => get_bloginfo('name'),
+        'cookies' => $_COOKIE,
+        'requestData' => $_REQUEST,
     ) );
     wp_enqueue_script('btn_1cc_checkout');
 }
@@ -2559,30 +2370,30 @@ function enqueueScriptsFor1cc()
 add_action( 'woocommerce_proceed_to_checkout', 'addCheckoutButton');
 
 if(isRazorpayPluginEnabled() && is1ccEnabled()) {
-   add_action('wp_head', 'addRzpSpinner');
+    add_action('wp_head', 'addRzpSpinner');
 }
 
 function addCheckoutButton()
 {
-  add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
+    add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
-  if (isRazorpayPluginEnabled() && is1ccEnabled() )
-  {
-    if (isTestModeEnabled()) {
-      $current_user = wp_get_current_user();
-      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
-        $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
-        load_template( $tempTest, false, array() );
-      }
-    } else {
-      $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
-      load_template( $tempTest, false, array() );
+    if (isRazorpayPluginEnabled() && is1ccEnabled() )
+    {
+        if (isTestModeEnabled()) {
+            $current_user = wp_get_current_user();
+            if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+                $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
+                load_template( $tempTest, false, array() );
+            }
+        } else {
+            $tempTest = RZP_PATH . 'templates/rzp-cart-checkout-btn.php';
+            load_template( $tempTest, false, array() );
+        }
     }
-  }
-  else
-  {
-    return;
-  }
+    else
+    {
+        return;
+    }
 }
 
 //To add 1CC Mini cart checkout button
@@ -2606,14 +2417,14 @@ function addMiniCheckoutButton()
     add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
     if (isTestModeEnabled()) {
-      $current_user = wp_get_current_user();
-      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+        $current_user = wp_get_current_user();
+        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+            $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
+            load_template( $tempTest, false, array() );
+        }
+    } else {
         $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
         load_template( $tempTest, false, array() );
-      }
-    } else {
-      $tempTest = RZP_PATH . 'templates/rzp-mini-checkout-btn.php';
-      load_template( $tempTest, false, array() );
     }
 
 }
@@ -2627,14 +2438,14 @@ if(isRazorpayPluginEnabled() && is1ccEnabled() && isPdpCheckoutEnabled())
 function addRzpSpinner()
 {
     if (isTestModeEnabled()) {
-      $current_user = wp_get_current_user();
-      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+        $current_user = wp_get_current_user();
+        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+            $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
+            load_template( $tempTest, false, array() );
+        }
+    } else {
         $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
         load_template( $tempTest, false, array() );
-      }
-    } else {
-      $tempTest = RZP_PATH . 'templates/rzp-spinner.php';
-      load_template( $tempTest, false, array() );
     }
 }
 
@@ -2643,14 +2454,14 @@ function addPdpCheckoutButton()
     add_action('wp_enqueue_scripts', 'enqueueScriptsFor1cc', 0);
 
     if (isTestModeEnabled()) {
-      $current_user = wp_get_current_user();
-      if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+        $current_user = wp_get_current_user();
+        if ($current_user->has_cap( 'administrator' ) || preg_match( '/@razorpay.com$/i', $current_user->user_email )) {
+            $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
+            load_template( $tempTest, false, array() );
+        }
+    } else {
         $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
         load_template( $tempTest, false, array() );
-      }
-    } else {
-      $tempTest = RZP_PATH . 'templates/rzp-pdp-checkout-btn.php';
-      load_template( $tempTest, false, array() );
     }
 }
 
