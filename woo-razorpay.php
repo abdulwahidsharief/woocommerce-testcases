@@ -681,7 +681,6 @@ function woocommerce_razorpay_init()
 
         protected function webhookAPI($method, $url, $data = array())
         {
-            update_option('rzp_afd_feature_checked', 'yes');
             $webhook = [];
             try
             {
