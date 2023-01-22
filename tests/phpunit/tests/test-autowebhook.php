@@ -16,24 +16,18 @@ class Test_AutoWebhook extends WP_UnitTestCase
         $_POST = array();
     }
 
-    public function testEmptyKeyAndSecretValidation()
+    public function testwebhookAPITest()
     {
-        $this->instance->shouldReceive('getSetting')->andReturnUsing(function ($key) {
-            if ($key == 'key_id')
-            {
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        });
+        $this->instance->shouldReceive('getRazorpayApiInstance')->andReturnUsing(
+            function () {
+                return new MockApi('key_id', 'key_secret');
+            });
 
-        ob_start();
-        $response = $this->instance->autoEnableWebhook();
-        $response = ob_get_contents();
-        ob_end_clean();
+        $webhookResponse = $this->instance->webhookAPI('GET', 'webhooks', []);
 
-        $this->assertStringContainsString('Key Id and Key Secret are required', $response);
+        $this->assertNotNull($webhookResponse);
+        $this->assertArrayHasKey('items', $webhookResponse);
+        $this->assertNotNull($webhookResponse['items'][0]['id']);
+        $this->assertArrayHasKey('events', $webhookResponse['items'][0]);
     }
 }
