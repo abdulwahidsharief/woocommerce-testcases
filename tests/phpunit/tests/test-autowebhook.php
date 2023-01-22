@@ -2,6 +2,8 @@
 
 use Razorpay\MockApi\MockApi;
 
+require_once __DIR__ . '/../../../woo-razorpay.php';
+
 class Test_AutoWebhook extends WP_UnitTestCase
 {
     private $instance;
