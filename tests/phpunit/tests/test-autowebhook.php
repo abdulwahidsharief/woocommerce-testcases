@@ -29,8 +29,9 @@ class Test_AutoWebhook extends WP_UnitTestCase
             }
         });
 
-//        ob_start();
         $response = $this->instance->autoEnableWebhook();
+        print_r($response);
+//        ob_start();
 //        $response = ob_get_contents();
 //        ob_end_clean();
 
