@@ -20,5 +20,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "7.4"
+
+      - uses: actions/cache@v1
+        id: cache-composer
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer
+
+      - uses: actions/cache@v1
+        id: cache-wp-cli
+        with:
+          path: ~/.wp-cli/cache
+          key: ${{ runner.os }}-wp-cli
+
       - name: Run tests
         run: .github/run-tests
