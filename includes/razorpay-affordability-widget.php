@@ -371,7 +371,7 @@ function getAffordabilityWidgetSettings()
                 'title'                 => __('Test Mode Enable/Disable'),
                 'type'                  => 'checkbox',
                 'desc'                  => __('Enable Test Mode?'),
-                'default'               => 'no',
+                'default'               => 'yes',
                 'id'                    => 'rzp_afd_enable_test_mode'
             ),
             'enable_offers' => array(
@@ -543,8 +543,7 @@ function updateAffordabilityWidgetSettings()
         update_option('rzp_afd_enable', 'no');
         foreach ($merchantPreferences['assigned_features'] as $preference)
         {
-            if ($preference['name'] === 'affordability_widget' or
-                $preference['name'] === 'affordability_widget_set')
+            if ($preference['name'] === 'affordability_widget')
             {
                 update_option('rzp_afd_enable', 'yes');
                 break;
@@ -603,7 +602,7 @@ function isAffordabilityWidgetTestModeEnabled()
 {
     if (empty(get_option('rzp_afd_enable_test_mode')) === true)
     {
-        return false;
+        return true;
     }
     return (
         empty(get_option('rzp_afd_enable_test_mode')) === false and

@@ -15,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) )
     exit; // Exit if accessed directly
 }
 
+define('PLUGIN_MAIN_FILE', __FILE__);
+
 require_once __DIR__.'/includes/razorpay-webhook.php';
 require_once __DIR__.'/razorpay-sdk/Razorpay.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -33,12 +35,6 @@ use Razorpay\Api\Errors;
 
 add_action('plugins_loaded', 'woocommerce_razorpay_init', 0);
 add_action('admin_post_nopriv_rzp_wc_webhook', 'razorpay_webhook_init', 10);
-
-// instrumentation hooks
-register_activation_hook(__FILE__, 'razorpayPluginActivated', 10, 2);
-register_deactivation_hook(__FILE__, 'razorpayPluginDeactivated', 10, 2);
-add_action('upgrader_process_complete', 'razorpayPluginUpgraded', 10, 2);
-
 
 function woocommerce_razorpay_init()
 {
@@ -355,8 +351,7 @@ function woocommerce_razorpay_init()
                     update_option('rzp_afd_enable', 'no');
                     foreach ($merchantPreferences['assigned_features'] as $preference)
                     {
-                        if ($preference['name'] === 'affordability_widget' or
-                            $preference['name'] === 'affordability_widget_set')
+                        if ($preference['name'] === 'affordability_widget')
                         {
                             add_action('woocommerce_sections_checkout', 'addSubSection');
                             add_action('woocommerce_settings_tabs_checkout', 'displayAffordabilityWidgetSettings');
@@ -376,22 +371,17 @@ function woocommerce_razorpay_init()
             }
         }
 
-        protected function getWebhookUrl()
-        {
-            return esc_url(admin_url('admin-post.php')) . '?action=rzp_wc_webhook';
-        }
-
         public function autoEnableWebhook()
         {
             $webhookExist = false;
-            $webhookUrl   = $this->getWebhookUrl();
+            $webhookUrl   = esc_url(admin_url('admin-post.php')) . '?action=rzp_wc_webhook';
 
             $key_id      = $this->getSetting('key_id');
             $key_secret  = $this->getSetting('key_secret');
             $enabled     = true;
             $secret = empty($this->getSetting('webhook_secret')) ? $this->generateSecret() : $this->getSetting('webhook_secret');
 
-            update_option('webhook_secret', $secret);
+            $this->update_option('webhook_secret', $secret);
             $getWebhookFlag =  get_option('webhook_enable_flag');
             $time = time();
 
@@ -525,14 +515,21 @@ function woocommerce_razorpay_init()
             if ($webhookExist)
             {
                 rzpLogInfo('Updating razorpay webhook');
-                return $this->webhookAPI('PUT', "webhooks/" . $webhookId, $data);
+                $this->webhookAPI('PUT', "webhooks/".$webhookId, $data);
             }
             else
             {
                 rzpLogInfo('Creating razorpay webhook');
-                return $this->webhookAPI('POST', "webhooks/", $data);
+                $this->webhookAPI('POST', "webhooks/", $data);
             }
 
+        }
+
+        public function newTrackPluginInstrumentation($key, $secret)
+        {
+            $api = $this->getRazorpayApiInstance($key, $secret);
+
+            return new TrackPluginInstrumentation($api, $key);
         }
 
         public function pluginInstrumentation()
@@ -544,7 +541,7 @@ function woocommerce_razorpay_init()
                 return;
             }
 
-            $trackObject = new TrackPluginInstrumentation($_POST['woocommerce_razorpay_key_id'], $_POST['woocommerce_razorpay_key_secret']);
+            $trackObject = $this->newTrackPluginInstrumentation($_POST['woocommerce_razorpay_key_id'], $_POST['woocommerce_razorpay_key_secret']);
 
             $existingVersion = get_option('rzp_woocommerce_current_version');
 
@@ -1144,32 +1141,12 @@ function woocommerce_razorpay_init()
 
             $i = 0;
             // Get and Loop Over Order Items
-            $type = "e-commerce";
             foreach ( $order->get_items() as $item_id => $item )
             {
                $product = $item->get_product();
+               $productDetails = $product->get_data();
 
-               // check product type for gift card plugin
-               if(is_plugin_active('pw-woocommerce-gift-cards/pw-gift-cards.php') || is_plugin_active('yith-woocommerce-gift-cards/init.php')){
-                    $productDetails = $product->get_data();
-                   if($product->is_type('variation')){
-                        $parentProductId = $product->get_parent_id();
-                        $parentProduct = wc_get_product($parentProductId);
-                     
-                        if($parentProduct->get_type() == 'pw-gift-card' || $parentProduct->get_type() == 'gift-card'){
-                            $type = 'gift_card';
-                        }
-
-                   }else{
-
-                       if($product->get_type() == 'pw-gift-card' || $product->get_type() == 'gift-card'){
-                              $type = 'gift_card'; 
-                       }
-                   }
-
-               }
-
-               $data['line_items'][$i]['type'] =  $type;
+               $data['line_items'][$i]['type'] = "e-commerce";
                $data['line_items'][$i]['sku'] = $product->get_sku();
                $data['line_items'][$i]['variant_id'] = $item->get_variation_id();
                $data['line_items'][$i]['price'] = (empty($productDetails['price'])=== false) ? round(wc_get_price_excluding_tax($product)*100) + round($item->get_subtotal_tax()*100 / $item->get_quantity()) : 0;
@@ -1347,60 +1324,6 @@ EOT;
             }
         }
 
-        // process refund for gift card
-        function processGiftCardRefund($orderId, $amount = null, $reason = '', $razorpayPaymentId)
-        {
-            $order = wc_get_order($orderId);
-
-            if (! $order or ! $razorpayPaymentId)
-            {
-                return new WP_Error('error', __('Refund failed: No transaction ID', 'woocommerce'));
-            }
-
-            $client = $this->getRazorpayApiInstance();
-
-            $data = array(
-                'amount'    =>  (int) round($amount),
-                'notes'     =>  array(
-                    'reason'                =>  $reason,
-                    'order_id'              =>  $orderId,
-                    'refund_from_website'   =>  true,
-                    'source'                =>  'woocommerce',
-                )
-            );
-
-            try
-            {
-                $refund = $client->payment->fetch( $razorpayPaymentId )->refund( $data );
-
-                wc_create_refund(array(
-                    'amount'         => $amount,
-                    'reason'         => $reason,
-                    'order_id'       => $orderId,
-                    'refund_id'      => $refund->id,
-                    'line_items'     => array(),
-                    'refund_payment' => false,
-                ));
-
-                $order->add_order_note( __( 'Refund Id: ' . $refund->id, 'woocommerce' ) );
-                /**
-                 * @var $refund ->id -- Provides the RazorPay Refund ID
-                 * @var $orderId -> Refunded Order ID
-                 * @var $refund -> WooCommerce Refund Instance.
-                 */
-                //do_action( 'woo_razorpay_refund_success', $refund->id, $orderId, $refund );
-                $this->add_notice("Payment refunded", "error");
-
-            }
-            catch(Exception $e)
-            {
-                rzpLogInfo('failure message for refund:' . $e->getMessage());
-            }
-
-            wp_redirect(wc_get_cart_url());
-            exit;
-        }
-
         /**
          * Process the payment and return the result
          **/
@@ -1442,9 +1365,19 @@ EOT;
             }
         }
 
-        public function getRazorpayApiInstance()
+        public function getRazorpayApiInstance($key = '', $secret = '')
         {
-            return new Api($this->getSetting('key_id'), $this->getSetting('key_secret'));
+            if ($key === '')
+            {
+                $key = $this->getSetting('key_id');
+            }
+
+            if ($secret === '')
+            {
+                $secret = $this->getSetting('key_secret');
+            }
+
+            return new Api($key, $secret);
         }
 
         /**
@@ -1807,7 +1740,7 @@ EOT;
             }
 
             $razorpayData = $api->order->fetch($razorpayOrderId);
-            
+
             $this->UpdateOrderAddress($razorpayData, $order);
 
             $gstNo             = $razorpayData['notes']['gstin']??'';
@@ -1820,8 +1753,37 @@ EOT;
                 $order->add_order_note( "Order Instructions: ". $orderInstructions);
             }
 
-            // update gift card and coupons
-            $this->updateGiftAndCoupon($razorpayData, $order, $wcOrderId, $razorpayPaymentId);
+
+            if (empty($razorpayData['promotions'][0]) === false)
+            {
+                $couponKey = $razorpayData['promotions'][0]['code'];
+            }
+
+            //Apply coupon to woo-order
+            if (empty($couponKey) === false)
+            {
+                // Remove the same coupon, if already being added to order.
+                $order->remove_coupon($couponKey);
+
+                //TODO: Convert all razorpay amount in paise to rupees
+                $discount_total = $razorpayData['promotions'][0]['value']/100;
+
+                //TODO: Verify source code implementation
+                // Loop through products and apply the coupon discount
+                foreach($order->get_items() as $order_item)
+                {
+                    $total = $order_item->get_total();
+                    $order_item->set_subtotal($total);
+                    $order_item->set_total($total - $discount_total);
+                    $order_item->save();
+                }
+                // TODO: Test if individual use coupon fails by hardcoding here
+                $isApplied = $order->apply_coupon($couponKey);
+                $order->save();
+
+                rzpLogInfo("Coupon details updated for orderId: $wcOrderId");
+
+            }
 
             //Apply shipping charges to woo-order
             if(isset($razorpayData['shipping_fee']) === true)
@@ -1969,150 +1931,6 @@ EOT;
 
             $note = __('Order placed through Razorpay Magic Checkout');
             $order->add_order_note( $note );
-        }
-
-        public function updateGiftAndCoupon($razorpayData, $order, $orderId, $razorpayPaymentId)
-        {
-            global $woocommerce;
-            global $wpdb;
-
-            foreach($razorpayData['promotions'] as $promotion)
-            {
-                if($promotion['type'] == 'gift_card'){
-
-                    $usedAmt = $promotion['value']/100;
-                    $giftCode = $promotion['code'];
-                    if(is_plugin_active('yith-woocommerce-gift-cards/init.php')){
-
-                        $yithCard = new YITH_YWGC_Gift_Card( $args = array('gift_card_number'=> $giftCode));
-
-                        //Get GC status
-                        $post  = get_post($yithCard->ID);
-                        $status = $post->post_status;
-
-                        $giftCardBalance = $yithCard->get_balance();
-
-                        if($giftCardBalance == null && $giftCardBalance >= 0 && $usedAmt > $giftCardBalance && 'trash' == $status && !$yithCard->exists()){
-                            // initiate refund in case gift card faliure
-                            $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                        }else{
-                            //Deduct amount of gift card
-                            $yithCard->update_balance( $yithCard->get_balance() - $usedAmt );
-                            $yithCard->register_order($orderId);
-
-                            $code = "Gift Card ($giftCode)";
-
-                            $wpdb->query( // phpcs:ignore
-                                $wpdb->prepare(
-                                    'INSERT INTO `' . $wpdb->prefix . 'woocommerce_order_items`( order_item_name, order_item_type, order_id ) VALUES ( %s, %s, %s)',
-                                    $code,
-                                    'fee',
-                                    $orderId
-                                )
-                            );
-
-                            $itemId = $wpdb->insert_id;
-                            wc_add_order_item_meta( $itemId, '_line_total', -$usedAmt );
-
-                            $order->add_order_note( sprintf( esc_html__( 'Order paid with gift cards for a total amount of %s.', 'yith-woocommerce-gift-cards' ), wc_price( $usedAmt ) ) );
-                            
-                            $orderTotal = $order->get_total() - $usedAmt;
-                            $order->set_total($orderTotal);
-                            $order->save();
-                        }
-
-                    }
-                    else if(is_plugin_active('pw-woocommerce-gift-cards/pw-gift-cards.php'))
-                    {
-                        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM `{$wpdb->pimwick_gift_card}` WHERE `number` = %s", $promotion['code'] ) );
-                        if($result != null){
-                            $balance = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->pimwick_gift_card_activity} WHERE pimwick_gift_card_id = %d", $result->pimwick_gift_card_id ) );
-                            
-                            if($balance == null && $balance >= 0 && $usedAmt > $balance ){
-                                // initiate refund in case gift card faliure
-                                $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                            }else{
-                                //Deduct amount of gift card
-                               $this->debitGiftCards($orderId, $order, "order_id: $orderId checkout_update_order_meta", $usedAmt, $giftcard['code']);
-                            }
-
-                        }else{
-                            $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                        }
-
-                    }else{
-                       $this->processGiftCardRefund($orderId, $razorpayData['amount_paid'], $reason = '', $razorpayPaymentId);
-                    }
-                    
-                }else{
-
-                    $couponKey = $promotion['code'];
-
-                    if (empty($couponKey) === false)
-                    {
-                        // Remove the same coupon, if already being added to order.
-                        $order->remove_coupon($couponKey);
-
-                        //TODO: Convert all razorpay amount in paise to rupees
-                        $discount_total = $giftcard['value']/100;
-
-                        //TODO: Verify source code implementation
-                        // Loop through products and apply the coupon discount
-                        foreach($order->get_items() as $order_item)
-                        {
-                            $total = $order_item->get_total();
-                            $order_item->set_subtotal($total);
-                            $order_item->set_total($total - $discount_total);
-                            $order_item->save();
-                        }
-                        // TODO: Test if individual use coupon fails by hardcoding here
-                        $isApplied = $order->apply_coupon($couponKey);
-                        $order->save();
-
-                        rzpLogInfo("Coupon details updated for orderId: $orderId");
-                    }
-                }
-                
-            }
-        }
-
-        protected function debitGiftCards( $orderId, $order, $note, $usedAmt, $giftCardNo) {
-
-            global $woocommerce;
-            global $wpdb;
-           
-            if ( ! is_a( $order, 'WC_Order' ) ) {
-                return;
-            }
-
-            // insert GC in orderitems
-            $wpdb->query( // phpcs:ignore
-                $wpdb->prepare(
-                    'INSERT INTO `' . $wpdb->prefix . 'woocommerce_order_items`( order_item_name, order_item_type, order_id ) VALUES ( %s, %s, %s)',
-                    $code,
-                    'pw_gift_card',
-                    $orderId
-                )
-            );
-
-            $itemId = $wpdb->insert_id;
-            wc_add_order_item_meta( $itemId, 'card_number', $giftCardNo );
-            wc_add_order_item_meta( $itemId, 'amount', $usedAmt );
-
-            foreach( $order->get_items( 'pw_gift_card' ) as $order_item_id => $line ) {
-                $gift_card = new PW_Gift_Card( $giftCardNo );
-                
-                if ( $gift_card->get_id() ) {
-                    if ( !$line->meta_exists( '_pw_gift_card_debited' ) ) {
-                        if ( $line->get_amount() != 0 ) {
-                            $gift_card->debit( ( $line->get_amount() * -1 ), "$note, order_item_id: $order_item_id" );
-                        }
-
-                        $line->add_meta_data( '_pw_gift_card_debited', true );
-                        $line->save();
-                    }
-                }
-            }
         }
 
         //To update customer address info to wc order.
@@ -2489,8 +2307,7 @@ EOT;
                     update_option('rzp_afd_enable', 'no');
                     foreach ($merchantPreferences['assigned_features'] as $preference)
                     {
-                        if ($preference['name'] === 'affordability_widget' or
-                            $preference['name'] === 'affordability_widget_set')
+                        if ($preference['name'] === 'affordability_widget')
                         {
                             update_option('rzp_afd_enable', 'yes');
                             break;
@@ -2688,87 +2505,6 @@ if(is1ccEnabled())
     add_filter('woocommerce_coupons_enabled', 'disable_coupon_field_on_cart');
     add_action('woocommerce_cart_updated', 'enqueueScriptsFor1cc', 10);
     add_filter('woocommerce_order_needs_shipping_address', '__return_true');
-}
-
-// instrumentation
-
-// plugin activation hook
-function razorpayPluginActivated()
-{
-    $paymentSettings = get_option('woocommerce_razorpay_settings');
-
-    $trackObject  = new TrackPluginInstrumentation($paymentSettings['key_id'], $paymentSettings['key_secret']);
-
-    $activateProperties = [
-        'page_url'            => $_SERVER['HTTP_REFERER'],
-        'redirect_to_page'    => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']
-    ];
-
-    $response = $trackObject->rzpTrackSegment('plugin activate', $activateProperties);
-
-    $trackObject->rzpTrackDataLake('plugin activate', $activateProperties);
-}
-
-// plugin deactivation hook
-function razorpayPluginDeactivated()
-{
-    global $wpdb;
-    $isTransactingUser = false;
-
-    $paymentSettings = get_option('woocommerce_razorpay_settings');
-
-    $trackObject  = new TrackPluginInstrumentation($paymentSettings['key_id'], $paymentSettings['key_secret']);
-
-    $rzpTrancationData = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta AS P WHERE meta_key = %s AND meta_value = %s", "_payment_method", "razorpay"));
-
-    $arrayPost = json_decode(json_encode($rzpTrancationData), true);
-
-    if (empty($arrayPost) === false and
-        ($arrayPost == null) === false)
-    {
-        $isTransactingUser = true;
-    }
-
-    $deactivateProperties = [
-        'page_url'            => $_SERVER['HTTP_REFERER'],
-        'is_transacting_user' => $isTransactingUser
-    ];
-
-    $response = $trackObject->rzpTrackSegment('plugin deactivate', $deactivateProperties);
-
-    $trackObject->rzpTrackDataLake('plugin deactivate', $deactivateProperties);
-}
-
-// plugin upgrade hook
-function razorpayPluginUpgraded()
-{
-    $paymentSettings = get_option('woocommerce_razorpay_settings');
-
-    $trackObject  = new TrackPluginInstrumentation($paymentSettings['key_id'], $paymentSettings['key_secret']);
-
-    $upgradeProperties = [
-        'page_url'            => $_SERVER['HTTP_REFERER'],
-        'prev_version'        => get_option('rzp_woocommerce_current_version'),
-        'new_version'         => get_plugin_data(__FILE__)['Version'],
-    ];
-
-    $response = $trackObject->rzpTrackSegment('plugin upgrade', $upgradeProperties);
-
-    $trackObject->rzpTrackDataLake('plugin upgrade', $upgradeProperties);
-
-    if ($response['status'] === 'success')
-    {
-        $existingVersion = get_option('rzp_woocommerce_current_version');
-
-        if(isset($existingVersion))
-        {
-            update_option('rzp_woocommerce_current_version', get_plugin_data(__FILE__)['Version']);
-        }
-        else
-        {
-            add_option('rzp_woocommerce_current_version', get_plugin_data(__FILE__)['Version']);
-        }
-    }
 }
 
 //Changes Recovery link URL to Magic cart URL to avoid redirection to checkout page
